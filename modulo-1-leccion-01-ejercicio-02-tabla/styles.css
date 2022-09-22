@@ -1,0 +1,25 @@
+* {
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+table, th, td {
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+table {
+    position:relative;
+    left:10%;
+    top: 100px;
+}
+th {
+    background-color: rgb(223, 198, 131);
+}
+td {
+    background-color:  antiquewhite;
+    text-align:start;
+    padding: 15px;
+}
+ul {
+    list-style: none;
+}
