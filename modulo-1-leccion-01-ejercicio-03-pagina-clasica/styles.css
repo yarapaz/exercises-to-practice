@@ -1,0 +1,22 @@
+html {
+    margin:2%;
+    line-height: 30px;
+    background-color: rgb(243, 254, 255);
+}
+aside {
+    display:flex;
+    justify-content: space-evenly;
+}
+.section-1 {
+    padding:3%;
+    background-color: rgb(157, 201, 226);
+    text-align: center;
+}
+.section-2 {
+    padding:3%;
+    background-color: rgb(165, 232, 232);
+    text-align: center;
+}
+ul {
+   list-style: square;
+}
