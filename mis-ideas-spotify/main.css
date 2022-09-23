@@ -1,0 +1,91 @@
+* {
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+}
+header {
+    border: solid 3px black; 
+    background-color: rgb(11, 169, 169);
+}
+button {
+    border: none;
+    background: none;
+}
+button:hover {
+    background-color: blanchedalmond;
+}
+button:active {
+    background-color: rgb(107, 68, 10);
+}
+/* Poner el boton customizado a nuestro antojo */
+/* nav {
+    position: absolute;
+    visibility: hidden;
+} */
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+.dropdown-content {
+    display: none;
+    /* Pasa de no tener display aqui, a cuando cambia a la clase show si tenerlo. Es como si lo
+    ocultara y lo desocultara*/
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown a:hover {background-color: #ddd;}
+.show {
+    display: block;
+}
+nav a {
+    display: block;
+    text-align:center;
+    line-height: 60px;
+    text-decoration: none;
+    background-color: antiquewhite;
+}
+.hello {
+    appearance: none;
+    outline: none;
+    border-radius: 50%;
+    border: 1px solid black;
+    /* Pasa de cuadrado a circulito */
+    width: 1.3em;
+    height: 1.3em;
+    background-color: rgb(244, 243, 243);
+    vertical-align: middle;
+    cursor: pointer;
+    /* Hace que en vez de una flecha aparezca la manita */
+    position: relative;
+    left:50px
+}
+/* Convierte el checkbox en redondito con color de check */
+
+.hello:checked {
+    /* background-color: blue; */
+    content: "";
+    transform: rotate(-45deg);
+}
+    /* Hace que cuando lo marquemos cambie de color  */
+
+/* table {
+    border: 2px solid black;
+    width: 100%;
+    border-collapse: collapse;
+}
+td {
+    border: 2px solid black;
+    border-collapse: collapse;
+} */
+/*  Codigo si queremos hacer la barra de navegacion con tabla
+en vez de con NAV */
