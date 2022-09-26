@@ -1,0 +1,86 @@
+/* HEADER */
+.header {
+    max-width: 1000px;
+}
+.botonheader {
+    display: none;
+}
+.barranavegacionfija {
+    display: inline-block;
+    display: flex;
+    justify-content: right;
+}
+.barranavegacionfija a {
+    text-decoration: var();
+    padding: ;
+    font-size: ;
+    font-weight: ;
+}
+.barranavegacionheader a:hover {
+
+}
+.barranavegacionheader a:active {
+
+}
+/* BODY */
+/* SECTIONBLUE */
+h1 {
+    width: ;
+    height: ;
+    font-size: ;
+}
+h3 {
+    width: ;
+    height: ;
+    font-size: ;
+}
+button {
+    
+}
+h4 {
+    width: ;
+    height: ;
+    font-size: ;
+}
+/* SECTIONWHITE */
+h2 {
+    width: ;
+    height: ;
+    font-size: ;
+}
+.imagenessectionwhite {
+    width: ;
+    height: ;
+    display: inline-block;
+    position: relative;
+}
+.textossectionwhite {
+    width: ;
+    height: ;
+    padding-right: ;
+    display: inline-block;
+    position: relative;
+}
+/* FOOTER */
+.navfooter {
+    width:;
+    height:;
+}
+.banderadiv {
+    width:;
+    height:;
+    position: relative; ??
+}
+p {
+    font-size: ;
+}
+.banderaespaña {
+    width:;
+    height:;
+}
+.copyright {
+    width: ;
+    height: ;
+    position: relative;
+    font-size: ;
+}

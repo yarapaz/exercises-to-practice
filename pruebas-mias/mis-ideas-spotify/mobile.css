@@ -1,0 +1,147 @@
+/* VARIABLES */
+:root {
+    --sectionbluecolor: white;
+    --textposition: left;
+    --sectionwhitecolor: black;
+    --linksdecoration: none;
+}
+/* HEADER */
+header {
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-width: 480px;
+    max-width: 480px;
+    width: 100vw;
+    height: ??vh;
+}
+header logo {
+    width: %;
+    height: %;
+}
+header button {
+    width:%;
+    height: %;
+    background: none;
+}
+header button:hover {
+
+}
+header button:active {
+
+}
+.barranavegaciondesplegable {
+    display: none;
+}
+.barranavegacionfija {
+    display: none;
+}
+/* BODY */
+/* SECTIONBLUE */
+.textossectionblue { 
+    color: var();
+    text-align: var();
+    display: block;
+    /* aplicarselo a todos menos al button */
+}
+h1 {
+    width: ;
+    height: ;
+    font-size: ;
+   
+}
+h3 {
+    width: ;
+    height: ;
+    font-size: ;
+}
+button {
+    color: var();
+    text-align: center;
+    background-color: green;
+    border-radius: px;
+}
+p {
+    width: ;
+    height: ;
+    font-size: ;
+}
+/* SECTIONWHITE */
+h2 {
+    text-align: center;
+    color: var();
+    font-size: ;
+    display: block;
+}
+.articles {
+    /* display:flex;
+    flex: wrap; */
+    display:block;
+    width:;
+    height:;
+}
+.imagenessectionwhite {
+    display: inline-block; ?? 
+/* No se si las imagenes tambien o solo los textos */
+    width:;
+    height:;
+    position: relative;
+}
+.textossectionwhite {
+    display: inline-block;
+    width:;
+    height:;
+    position: relative;
+    color: var();
+    text-align: var();
+}
+h4 {
+    font-size: ;
+}
+p {
+    font-size: ;
+}
+/*  FOOTER */
+.footer {
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+}
+.navfooter {
+    display: flex;
+    flex-wrap: wrap;
+    width:;
+    height:;
+}
+.navfooter a {
+    color: var();
+    padding: ;
+    text-decoration: var();
+}
+.navfooter a:hover {
+
+}
+.navfooter a:active {
+
+}
+.banderadiv {
+    display: inline-block;
+    width:;
+    height:;
+    text-align: right;
+    position: relative;
+}
+.p {
+    color: var();
+}
+.banderaespaña {
+    width:;
+    height:;
+}
+.copyright {
+    color: var();
+    width: ;
+    height: ;
+    position: relative;
+}
