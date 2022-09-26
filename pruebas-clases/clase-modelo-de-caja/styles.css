@@ -1,0 +1,57 @@
+:root {
+    --main-color: black;
+}
+
+.logo {
+    width: 100px;
+}
+li {
+    background-color: aquamarine;
+    display: inline-block;
+    margin:20px;
+}
+
+.header .link {
+    display: block;
+    padding: 20px;
+    text-decoration: none;
+    color: brown;
+}
+/* Las clases se separan con espacios entre sí.*/
+
+.active {
+    background-color: aliceblue;
+}
+/* Si quiero que un grupo de links o solo un link se comporte de manera distinta
+yo creo la clase LINK, general para todos, y luego una clase
+distinta, en este caso ACTIVE para que los LINKS que tengan clase ACTIVE
+se comporten distinto. Esta clase solo afecta al espacio, que es el LI, no a la palabra, que es
+el A */
+/* Hereda todo lo que ya establecimos en el LIO anterior y lo unico
+que está añadiendo es el background color */
+.adalab {
+    color: burlywood;
+    font-weight: bold;
+}
+.hero {
+    background-image: url("https://adalab.es/wp-content/uploads/2021/06/Cabecera-Blog-de-Adalab.png");
+    background-position: center;
+    height: 400px;
+}
+
+.hero .title {
+    color: black;
+    font-size: 30px;
+    width: 50%;
+    padding-top: 100px;
+    padding-bottom: 30px;
+    /* Uso el padding para bajar el titulo y moverlo por la imagen*/
+}
+.hero .link {
+    background-color: rgb(178, 87, 87);
+    /* padding: 20px; */
+    /* Este margin no funciona porque es un elemento en linea*/
+    /*  Para separar h1 y a es mejor poner en el h1 un padding bottom */
+    margin-top: 10px;
+    padding: 10px;
+}
