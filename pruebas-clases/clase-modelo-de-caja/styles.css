@@ -1,26 +1,41 @@
 :root {
-    --main-color: black;
+    --main-color: aqua;
 }
 
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width:100vw;
+    height:50%;
+}
 .logo {
     width: 100px;
+    margin-left:50px;
+}
+.nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width:55%;
+    min-width: 800px;
 }
 li {
-    background-color: aquamarine;
+    background-color: var(--main-color);
     display: inline-block;
     margin:20px;
 }
 
 .header .link {
     display: block;
-    padding: 20px;
+    padding: 15px;
     text-decoration: none;
-    color: brown;
+    color: black;
 }
 /* Las clases se separan con espacios entre sí.*/
 
 .active {
-    background-color: aliceblue;
+    background-color: white;
 }
 /* Si quiero que un grupo de links o solo un link se comporte de manera distinta
 yo creo la clase LINK, general para todos, y luego una clase
@@ -30,28 +45,35 @@ el A */
 /* Hereda todo lo que ya establecimos en el LIO anterior y lo unico
 que está añadiendo es el background color */
 .adalab {
-    color: burlywood;
+    color: var(--main-color);
     font-weight: bold;
 }
 .hero {
     background-image: url("https://adalab.es/wp-content/uploads/2021/06/Cabecera-Blog-de-Adalab.png");
     background-position: center;
     height: 400px;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    /* justify-content: flex-start; */
+    gap:10px;
 }
 
 .hero .title {
-    color: black;
+    color: white;
+    border: 2px solid black;
     font-size: 30px;
     width: 50%;
-    padding-top: 100px;
-    padding-bottom: 30px;
-    /* Uso el padding para bajar el titulo y moverlo por la imagen*/
 }
 .hero .link {
-    background-color: rgb(178, 87, 87);
+    background-color: var(--main-color);
     /* padding: 20px; */
     /* Este margin no funciona porque es un elemento en linea*/
     /*  Para separar h1 y a es mejor poner en el h1 un padding bottom */
-    margin-top: 10px;
     padding: 10px;
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    margin-bottom: 50px;
 }

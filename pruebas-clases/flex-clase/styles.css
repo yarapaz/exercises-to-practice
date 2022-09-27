@@ -1,0 +1,34 @@
+.section {
+    border: 2px solid black;
+    height:800px;
+    display:flex;
+    flex-direction: row;
+    background-color: bisque;
+    align-items: center;
+    align-items: stretch;
+    /* Solo es valido si las cajas no tienen width
+    o height especificos porque sino no pueden crecer*/
+    /* Stretch ajusta la caja al contenedor padre
+    pero no trabaja como el FLEXGROW porque no reparte
+    el espacio sobrante de forma distinta segun la caja, son
+    todas iguales*/
+}
+.box1, .box2, .box3 {
+    /* width:200px;
+    height: 200px; */
+}
+.box1 {
+    background-color: aquamarine;
+    order: 3;
+    flex-grow: 3;
+}
+.box2 {
+    background-color: blueviolet;
+    order: 1;
+    flex-grow: 1;
+}
+.box3 {
+    background-color: blue;
+    order: 2;
+    flex-grow: 2;
+}
