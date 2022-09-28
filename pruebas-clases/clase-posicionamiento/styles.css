@@ -1,0 +1,28 @@
+.container {
+    background-color: grey;
+    position:relative;
+    top:100px;
+}
+.box {
+    width: 200px;
+    height: 1000px;
+}
+.red {
+    background-color: red;
+    position: relative;
+    left: 50px;
+    top: 50px;
+}
+.violet {
+    background-color: violet;
+    position: absolute;
+    top:0;
+}
+.green {
+    background-color: green;
+}
+p {
+    background: aqua;
+    position: fixed;
+    z-index: 100;
+}
