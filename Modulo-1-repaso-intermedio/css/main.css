@@ -1,0 +1,90 @@
+:root {
+  --fire-red-engine: #cc212a;
+  font-family: "Montserrat", sans-serif;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+/*  Incluir siempre esto */
+body {
+  min-height: 100vh;
+}
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  /* De hecho me indican en el enunciado que debe
+  ocupar este espacio */
+}
+.title {
+  font-size: 48px;
+  font-weight: 800;
+  /* Puedo ir probando valores hasta llegar a mi bold perfecto o usar los 
+  valores por defecto. Esto es mas custom*/
+  text-align: center;
+  color: var(--fire-red-engine);
+  /* width: 11ch; */
+  /*  Con esto provocamos saltos de línea sin utilizar el br 
+  Con ch, que corresponde a caracteres, le damos el tamaño de x caracteres. 
+  Para saltos de página es util. El problema es que no podemos controlarlo*/
+
+  /* Nunca utilizar WIDTH */
+}
+.title::first-line {
+  word-spacing: 100vh;
+  /* Con este comando aplicamos el tamaño a solo la primera línea */
+  /* Le digo que quiero que la primera linea ocupe todo el tamaño de la pantalla,
+  al hacer esto una sola palabra ocupa todo el ancho y está sola en su linea
+  sin necesidad de modificar el ancho de esta caja */
+  /* PERFECTO para saltos de linea */
+  /* El valor puede ser cualquiera */
+  /* FIRST LINE coge la primera palabra con el WORD SPACING pero con otras propiedades coge
+  solo la primera linea, CUIDADO */
+}
+.footer {
+  position: fixed;
+  z-index: 1;
+  bottom: 0;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-top: solid var(--fire-red-engine) 3px;
+}
+.ball {
+  color: white;
+  background-color: var(--fire-red-engine);
+  width: 50px;
+  height: 50px;
+  /* Mejor esta opcion para redimensionar el elemento */
+  text-align: center;
+  /*  o
+  padding */
+  border-radius: 50%;
+  /* Border radius siempre con porcentajes mejor */
+  line-height: 50px;
+  /* Para colocar el texto en el centro*/
+  transform: translateY(-50%);
+  /* Tambien se puede con position relative. ABSOLUTE no porque sino lo saca del flujo y
+  el resto de elementos no lo tienen en cuenta y no queremos eso*/
+}
+
+@media screen and (min-width: 480px) {
+  .footer {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding: 15px;
+    box-sizing: border-box;
+    /*  Con esto me arregla que los elementos se peguen a los lados
+    y casi desaparezcan */
+  }
+  .ball {
+    transform: none;
+  }
+}
