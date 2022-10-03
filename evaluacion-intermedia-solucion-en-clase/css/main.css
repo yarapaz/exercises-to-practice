@@ -1,0 +1,67 @@
+/* vh, vw, % px = medidas que podemos utilizar*/
+* {
+  padding: 0;
+  margin: 0;
+}
+:root {
+  font-family: "Rubik", sans-serif;
+}
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  background-color: white;
+  width: 100%;
+  padding-bottom: 13px;
+  /* Para indicar el padding bottom */
+}
+.header-logo__link__img {
+  width: 155px;
+}
+.header-nav {
+  font-size: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+}
+.header-nav__link {
+  text-decoration: none;
+  color: #4a4a4a;
+  padding: 10px 10px 13px 10px;
+  /* En la imagen ponía que en torno al nav había x margenes. Para indicarlos los marco así.Los importantes son los izquierdos y derechos (que ponía que eran 20px entre ambos) el de abajo es mejor aplicarlo al header (Da igual dejarlo aquí porque gana el mayor valor, pero si se lo aplico al header la etiqueta A queda dentro del header, si se lo aplico solo a la A se sale del header por fuera y el header no queda dentro) y los margenes no indicados da igual lo que ocupen, pero mejor algo heterogeneo*/
+  text-transform: uppercase;
+}
+/* La etiqueta a no acepta la herencia */
+.main {
+  height: 100vh;
+  background-color: rgb(27, 143, 104);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main-title {
+  color: white;
+  font-size: 30px;
+  word-spacing: 100vw;
+  /* width: 11ch / 30% */
+  /* O utilizar width. No es la forma más fácil pero se puede. O bien utilizar una medida en caracteres*/
+  /* width:min-content */
+  text-align: center;
+  letter-spacing: 2px;
+  text-transform: capitalize;
+}
+@media all and (min-width: 768px) {
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 30px;
+    padding-right: 20px;
+    padding-top: 20px;
+  }
+  .main-title {
+    font-size: 2.5rem;
+  }
+}
