@@ -1,0 +1,51 @@
+@import "core/variables";
+@import "core/reset";
+@import "components/code";
+@import "components/links";
+@import "layout/page";
+@import "layout/header";
+@import "layout/footer";
+@import "pages/index";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  font-family: sans-serif;
+  font-size: 24px;
+}
+.item {
+  text-decoration: underline;
+  position: relative;
+}
+.item:hover {
+  cursor: pointer;
+}
+.item .desc {
+  display: none;
+  background-color: white;
+  border: solid 1px black;
+  width: 300px;
+  height: 100px;
+  position: absolute;
+  z-index: 1;
+}
+.item:hover .desc {
+  // busca elementos item que tengan un elemento desc dentro
+  display: block;
+}
+
+.download__icon {
+  background-color: red;
+  color: white;
+  position: absolute;
+  right: 10px;
+}
+.download__link {
+  border: solid 1px black;
+  width: 80%;
+  padding: 10px;
+  position: relative;
+}
