@@ -1,0 +1,18 @@
+.title {
+  text-transform: uppercase;
+}
+.success {
+  border: darkgreen;
+  background-color: lightgreen;
+  color: darkgreen;
+}
+.error {
+  border: rgb(147, 28, 4);
+  background-color: rgb(243, 157, 123);
+  color: rgb(147, 28, 4);
+}
+.warning {
+  border: rgba(215, 178, 15, 0.748);
+  background-color: rgb(225, 221, 115);
+  color: rgba(215, 178, 15, 0.748);
+}
