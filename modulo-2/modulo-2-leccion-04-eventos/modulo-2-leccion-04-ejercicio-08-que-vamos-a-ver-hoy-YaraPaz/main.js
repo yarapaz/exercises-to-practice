@@ -22,7 +22,7 @@ button.addEventListener('click', () => {
   popArea.innerHTML = popArea.innerHTML + movieList;
 });
 
-movie1.addEventListener('mouseover', () => {
+movie1.addEventListener('mouseover', (event) => {
   const selectedMovie = event.currentTarget;
   const selectedMovieInfo = selectedMovie.innerHTML;
   const selectedMovieText = `<p>La peli seleccionada es: ${selectedMovieInfo}</p>`;
