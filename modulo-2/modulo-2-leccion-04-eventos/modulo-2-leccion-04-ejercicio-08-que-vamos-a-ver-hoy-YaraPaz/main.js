@@ -1,12 +1,12 @@
 'use strict';
 
-const button = document.querySelector('.btn');
-const popArea = document.querySelector('body');
 const inception = 'Inception';
 const theButterFlyEffect = 'The butterfly effect';
 const eternalSunshineOfTheSM = 'Eternal sunshine of the spotless mind';
 const blueVelvet = 'Blue velvet';
 const split = 'Split';
+const button = document.querySelector('.btn');
+const popArea = document.querySelector('body');
 const movie1 = document.querySelector('.movie1');
 // const movie2 = document.querySelector('.movie2');
 // const movie3 = document.querySelector('.movie3');
