@@ -16,7 +16,8 @@ button.addEventListener('click', () => {
   // } else {
   //   welcomeText.innerHTML = 'Hola' + ' ' + inputValue;
   // }
-  welcomeText.innerHTML = welcomeText.innerHTML + ' ' + inputValue;
+  welcomeText.innerHTML = 'Hola';
+  welcomeText.innerHTML += ' ' + inputValue;
 });
 
 // SOLUCION: 1) con un if conseguimos limpiar mucho más el codigo y hacerlo mas profesional aunque no nos lo pidan
