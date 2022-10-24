@@ -19,9 +19,3 @@ button.addEventListener('click', () => {
   welcomeText.innerHTML = 'Hola';
   welcomeText.innerHTML += ' ' + inputValue;
 });
-
-// SOLUCION: 1) con un if conseguimos limpiar mucho más el codigo y hacerlo mas profesional aunque no nos lo pidan
-// incluyendo la primera opción
-// 2) Si imprimimos todo el mensaje cada vez que hagamos click
-// solo aparecerá ese mensaje y no se concatenará.
-// 3) Podemos hacerlo mas corto pero entonces se concatenan cosas
