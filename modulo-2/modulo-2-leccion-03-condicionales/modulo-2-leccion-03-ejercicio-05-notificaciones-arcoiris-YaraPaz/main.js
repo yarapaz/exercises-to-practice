@@ -1,11 +1,16 @@
 'use strict';
 
-const titleText = document.querySelector('.title');
+const component = document.querySelector('.js_component');
+const title = document.querySelector('.js_title');
+const text = document.querySelector('.js_text');
 
-if (titleText.classList.contains('warning')) {
-  titleText.innerHTML = 'AVISO';
-} else if (titleText.classList.contains('error')) {
-  titleText.innerHTML = 'ERROR';
-} else if (titleText.classList.contains('success')) {
-  titleText.innerHTML = 'CORRECTO';
+if (component.classList.contains('warning')) {
+  title.innerHTML = 'AVISO';
+  text.innerHTML = 'Tenga cuidado';
+} else if (component.classList.contains('error')) {
+  title.innerHTML = 'ERROR';
+  text.innerHTML = 'Ha habido un error';
+} else if (component.classList.contains('success')) {
+  title.innerHTML = 'CORRECTO';
+  text.innerHTML = 'El resultado es correcto';
 }
