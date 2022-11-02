@@ -30,12 +30,12 @@ function paintTask() {
   for (let i = 0; i < tasks.length; i++) {
     if (tasks[i].completed === true) {
       listItem = `<li class="list_item crossed">${tasks[i].name}</li>`;
-      checkboxInput = `<label><input class="checkbox" id="${i}" checked type="checkbox" value="completed"/>Completed</label>`;
+      checkboxInput = `<label for="checkbox"><input class="checkbox" id="checkbox" checked type="checkbox" value="completed"/>Completed</label>`;
       listItem += checkboxInput; //para manejar solo un elemento al final junto aquí el listItem y el CheckboxInput.
       completed++;
     } else {
       listItem = `<li class="list_item">${tasks[i].name}</li>`;
-      checkboxInput = `<label><input class="checkbox" id="${i}" type="checkbox" value="completed"/>Completed</label>`;
+      checkboxInput = `<label for="checkbox"><input class="checkbox" id="checkbox" type="checkbox" value="completed"/>Completed</label>`;
       listItem += checkboxInput;
       toDo++;
     }
@@ -47,14 +47,13 @@ function paintTask() {
 paintTask(); //Una vez invoco a la función todo lo que tuviera que imprimir esta función quedará ya impreso en el DOM. Así podré llamar, con las clases que les he proporcionado, a los nuevos elementos creados
 //Crear funciones que impriman elementos en el DOM e invocarlas es una buena forma de crear elementos html a través de JS y después poder acceder a ellos como si siempre hubieran estado ahí en el html impresos desde el principio
 
-//Events
+//EVENTS
 
 //Event - check & uncheck task when clicking checkbox
 const inputList = document.querySelectorAll('.checkbox');
 const itemsList = document.querySelectorAll('.list_item'); //Estas constantes deben declararse aquí, justo cuando la función ha sido invocada y los elementos creados, sino no me hará el query selector. Muy importante su ubicación.
 
 for (let i = 0; i < inputList.length; i++) {
-  debugger;
   inputList[i].addEventListener('click', () => {
     if (inputList[i].checked === true) {
       itemsList[i].classList.add('crossed');
