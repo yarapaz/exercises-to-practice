@@ -10,7 +10,7 @@ const items = [
   },
 ];
 
-for (i = 0; i < items.length; i++) {
+for (let i = 0; i < items.length; i++) {
   console.log(
     `El dato ${items[i]} está en la posición ${i} y es de tipo ${typeof items[
       i
