@@ -22,4 +22,5 @@ const greetingUsers = function (user) {
 };
 
 const usersGreetings = users.map(greetingUsers); //La función creada aparte como la tipo arrow que se podría haber añadido dentro, ambas deben tener el mismo parámetro. Eso es lo que me falló al principio. NO PUEDO cambiar los parametros entre una y otra.
+
 console.log(usersGreetings);

@@ -22,3 +22,5 @@ function bestLostNomber() {
   }
   return evenLostNumbers.concat(multipleOfThreeLostNumbers);
 }
+
+bestLostNomber();

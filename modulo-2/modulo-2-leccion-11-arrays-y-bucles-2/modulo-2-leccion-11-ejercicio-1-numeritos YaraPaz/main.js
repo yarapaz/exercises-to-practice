@@ -13,3 +13,5 @@ function get100Numbers() {
   }
   return numbers;
 }
+
+get100Numbers();

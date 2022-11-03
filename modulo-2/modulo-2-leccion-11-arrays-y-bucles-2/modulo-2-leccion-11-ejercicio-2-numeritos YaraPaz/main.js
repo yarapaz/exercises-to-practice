@@ -16,6 +16,8 @@ function getReversed100Numbers() {
   return numbers;
 }
 
+getReversed100Numbers();
+
 //------- (otra manera usando REVERSE)------
 
 //Elements
@@ -30,3 +32,5 @@ function getReversed100Numbers() {
   }
   return numbers.reverse();
 }
+
+getReversed100Numbers();

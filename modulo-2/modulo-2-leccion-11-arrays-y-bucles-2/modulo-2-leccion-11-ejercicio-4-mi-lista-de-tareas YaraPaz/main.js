@@ -31,7 +31,7 @@ function paintTask() {
     if (tasks[i].completed === true) {
       listItem = `<li class="list_item crossed">${tasks[i].name}</li>`;
       checkboxInput = `<label for="checkbox"><input class="checkbox" id="checkbox" checked type="checkbox" value="completed"/>Completed</label>`;
-      listItem += checkboxInput; //para manejar solo un elemento al final junto aquí el listItem y el CheckboxInput.
+      listItem += checkboxInput; //porque quiero que vayan juntos al final, no cada uno por su lado. No quiero los LI por un lado y los CHECKBOX por otro
       completed++;
     } else {
       listItem = `<li class="list_item">${tasks[i].name}</li>`;
@@ -40,7 +40,7 @@ function paintTask() {
       toDo++;
     }
     list.innerHTML += listItem; //meterlo dentro del for me asegura que dentro del innerhtml me irá pintando lo que vaya recogiendo en listItem según recorre el bucle. Si lo coloco fuera entonces cogerá el valor undefined de listitem declarado arriba del todo porque no cogerá los valores generados por el bucle
-    trackText.innerHTML = `Tienes ${tasks.length} tareas. ${completed} completadas y ${toDo} por realizar.`;
+    trackText.innerHTML = `Tienes ${tasks.length} tareas. ${completed} completadas y ${toDo} por realizar.`; //Importante meter esto dentro del bucle para que al llegar al final me haga esto
   }
 }
 
