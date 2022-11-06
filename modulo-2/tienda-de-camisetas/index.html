@@ -8,38 +8,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tienda de camisetas molonas</title>
+    <link rel="stylesheet" href="./main.css">
 </head>
 
 <body>
     <main>
         <h1 class="hidden">Listado de camisetas</h1>
-        <section class="js_cards">
+        <section class="tshirts js_Tshirts">
 
         </section>
-        <section>
-            <article>
-                <img src="" alt="">
-                <h3>Node JS</h3>
-                <p>16 €</p>
-                <button>Añadir a la cesta</button>
-            </article>
-            <article>
-                <img src="" alt="">
-                <h3>JavaScript</h3>
-                <p>15 €</p>
-                <button>Añadir a la cesta</button>
-            </article>
-            <article>
-                <img src="" alt="">
-                <h3>React JS</h3>
-                <p>13 €</p>
-                <button>Añadir a la cesta</button>
-            </article>
-        </section>
+
         <section>
             <article>
                 <h2>Cesta de la compra</h2>
-                <table>
+                <table class="table">
                     <thead>
                         <tr>
                             <th>Producto</th>
@@ -48,45 +30,20 @@
                             <th>Total</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>JavaScript</td>
-                            <td>15,00</td>
-                            <td><button>-</button>2<button>+</button></td>
-                            <td>30,00€</td>
-                        </tr>
-                        <tr>
-                            <td>Node JS</td>
-                            <td>12,00</td>
-                            <td><button>-</button>3<button>+</button></td>
-                            <td>36,00€</td>
-                        </tr>
-                        <tr>
-                            <td>React JS</td>
-                            <td>15,00</td>
-                            <td><button>-</button>2<button>+</button></td>
-                            <td>30,00€</td>
-                        </tr>
-                    <tfoot>
-                        <tr>
-                            <td>Total</td>
-                            <td></td>
-                            <td></td>
-                            <td>....</td>
-                        </tr>
-                    </tfoot>
+                    <tbody class="js_cart">
+
                     </tbody>
                 </table>
             </article>
             <article>
                 <h2>¿Dónde te lo enviamos?</h2>
-                <form action="">
+                <form class="form" action="">
                     <label for="address">Dirección</label>
-                    <input type="text" name="address" id="address">
+                    <input class="input js_address" type="text" name="address" id="address">
                     <label for="city">Ciudad</label>
-                    <input type="text" name="city" id="city">
+                    <input class="input js_city" type="text" name="city" id="city">
                     <label for="zip">Código postal</label>
-                    <input type="number" name="zip" id="zip">
+                    <input class="input js_zip" type="number" name="zip" id="zip">
                 </form>
             </article>
         </section>
