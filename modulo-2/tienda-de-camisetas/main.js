@@ -6,6 +6,7 @@ const shoppingCart = document.querySelector('.js_cart');
 const userAddress = document.querySelector('.js_address');
 const userCity = document.querySelector('.js_city');
 const userZip = document.querySelector('.js_zip');
+const sendText = document.querySelector('.js_text');
 
 //Tshirt 1
 const tshirt_1 = {
@@ -18,7 +19,13 @@ const tshirt_1 = {
       this.quantity -= 1;
     }
   },
+  incQuantity: incQuantity,
 };
+//Puedo desarrollar la función como método dentro del mismo objeto o crearla fuera y dentro del objeto llamarla.
+
+function incQuantity() {
+  this.quantity += 1;
+}
 
 //Tshirt 2
 const tshirt_2 = {
@@ -32,6 +39,9 @@ const tshirt_2 = {
     }
   },
 };
+
+//Products array
+const products = [tshirt_1, tshirt_2];
 
 //Delivery
 const userInfo = {};
@@ -52,9 +62,15 @@ function renderTshirt(tshirt) {
 }
 
 function paintTshirts() {
-  const newTshirt1 = renderTshirt(tshirt_1);
-  const newTshirt2 = renderTshirt(tshirt_2);
-  newTshirtsSection.innerHTML = newTshirt1 + newTshirt2;
+  //Bucle con un for ... of
+  let tshirt = ''; //se declara fuera porque la utilizaré fuera del for y porque sino en cada vuelta del for se machacará el codigo y lo que quiero es que se sume el codigo
+  for (const product of products) {
+    //para nombre de constante se suele utilizar o item o el nombre del array en singular
+    tshirt += renderTshirt(product);
+  }
+  newTshirtsSection.innerHTML = tshirt;
+  // const newTshirt1 = renderTshirt(tshirt_1);
+  // const newTshirt2 = renderTshirt(tshirt_2);
 }
 
 //Cart section
@@ -81,13 +97,20 @@ function renderTotalPrice(totalPrice) {
 }
 
 function paintCartItems() {
+  //Bucle clásico
   shoppingCart.innerHTML = '';
-  const finalPrice =
-    tshirt_1.price * tshirt_1.quantity + tshirt_2.price * tshirt_2.quantity;
-  const product1 = renderCartItem(tshirt_1);
-  const product2 = renderCartItem(tshirt_2);
-  const total = renderTotalPrice(finalPrice);
-  shoppingCart.innerHTML = product1 + product2 + total;
+
+  for (let i = 0; i < products.length; i++) {
+    shoppingCart.innerHTML += renderCartItem(products[i]);
+  }
+  //Por ahora nos olvidamos de la fila del total
+
+  // const finalPrice =
+  //   tshirt_1.price * tshirt_1.quantity + tshirt_2.price * tshirt_2.quantity;
+  // const product1 = renderCartItem(tshirt_1);
+  // const product2 = renderCartItem(tshirt_2);
+  // const total = renderTotalPrice(finalPrice);
+  // shoppingCart.innerHTML = product1 + product2 + total;
   listenCartButtons();
   //Debo meter esta función de escucha aquí para completar el circulo constante de suma de cantidades
   //si pongo esta función fuera el flujo es el siguiente: se pinta la cesta, se escucha el boton, haciendo click se pinta una nueva cesta llamando de nuevo a la funcion y FIN. Aunque vuelva a hacer click ya no volverá a activarse el click.
@@ -112,7 +135,7 @@ function listenCartButtons() {
   btnDecrement.addEventListener('click', handleQuantityBtn);
 }
 
-function handleAddress(ev) {
+function handleSendInfo(ev) {
   const inputName = ev.currentTarget.name;
   userInfo[inputName] = ev.currentTarget.value;
   //Como lo hizo Ivan. Aqui utilizo un atributo gancho. Le paso como nombre de la propiedad de ese nuevo objeto vacío declarado anteriormente el vvalor del atributo name de mi inpuyt, que resulta que tiene el mismo nombre que la propiedad que queremos meterle. Después le metemos como valor el value del input que es lo que se ha recogido del evento de tipo input.
@@ -123,11 +146,17 @@ function handleAddress(ev) {
   //   } else if (ev.currentTarget.classList.contains('js_city')) {
   //     userInfo.city = ev.currentTarget.value;
   //   }
+
+  paintSendInfo();
+}
+
+function paintSendInfo() {
+  sendText.innerHTML = userAddress.value + userCity.value + userZip.value;
 }
 
 //Events
 paintTshirts();
 paintCartItems();
-userAddress.addEventListener('input', handleUserInfo);
-userCity.addEventListener('input', handleUserInfo);
-userZip.addEventListener('input', handleUserInfo);
+userAddress.addEventListener('input', handleSendInfo);
+userCity.addEventListener('input', handleSendInfo);
+userZip.addEventListener('input', handleSendInfo);
