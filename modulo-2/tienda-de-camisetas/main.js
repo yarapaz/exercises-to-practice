@@ -1,5 +1,7 @@
 'use strict';
 
+//Fetch
+
 //Elements
 const newTshirtsSection = document.querySelector('.js_Tshirts');
 const shoppingCart = document.querySelector('.js_cart');
@@ -9,39 +11,67 @@ const userZip = document.querySelector('.js_zip');
 const sendText = document.querySelector('.js_text');
 
 //Tshirt 1
-const tshirt_1 = {
-  name: 'Gatincho escondido',
-  price: 12.5,
-  img: './images/gatito-1.jpg',
-  quantity: 1,
-  incQuantity: incQuantityFunction,
-  decQuantity: function () {
-    if (this.quantity > 0) {
-      this.quantity -= 1;
-    }
-  },
-};
+// const tshirt_1 = {
+//   name: 'Gatincho escondido',
+//   price: 12.5,
+//   img: './images/gatito-1.jpg',
+//   quantity: 1,
+//   incQuantity: incQuantityFunction,
+//   decQuantity: function (product) {
+//     if (product.quantity > 0) {
+//       product.quantity -= 1;
+//     }
+//   },
+// };
 //Puedo desarrollar la función como método dentro del mismo objeto o crearla fuera y dentro del objeto llamarla.
 
-function incQuantityFunction() {
-  this.quantity += 1;
+function incQuantityFunction(product) {
+  product.quantity += 1;
 }
 
 //Tshirt 2
-const tshirt_2 = {
-  name: 'Gatincho feliz',
-  price: 12.0,
-  img: './images/gatito-2.jpg',
-  quantity: 1,
-  decQuantity: function () {
-    if (this.quantity > 0) {
-      this.quantity -= 1;
-    }
-  },
-};
+// const tshirt_2 = {
+//   name: 'Gatincho feliz',
+//   price: 12.0,
+//   img: './images/gatito-2.jpg',
+//   quantity: 1,
+//   decQuantity: function () {
+//     if (this.quantity > 0) {
+//       this.quantity -= 1;
+//     }
+//   },
+// };
 
 //Products array
-const products = [tshirt_1, tshirt_2];
+//Array con elementos específicos con su nombre de objeto
+// const products = [tshirt_1, tshirt_2];
+
+//array de raiz plana en el que los objetos no tienen nombre, se accede a ellos por su posición
+// const products = [
+//   {
+//     name: 'Gatincho escondido',
+//     price: 12.5,
+//     img: './images/gatito-1.jpg',
+//     quantity: 1,
+//     incQuantity: incQuantityFunction,
+//     decQuantity: function (product) {
+//       if (product.quantity > 0) {
+//         product.quantity -= 1;
+//       }
+//     },
+//   },
+//   {
+//     name: 'Gatincho feliz',
+//     price: 12.0,
+//     img: './images/gatito-2.jpg',
+//     quantity: 1,
+//     decQuantity: function () {
+//       if (this.quantity > 0) {
+//         this.quantity -= 1;
+//       }
+//     },
+//   },
+// ];
 
 //Delivery
 const userInfo = {};
@@ -136,9 +166,10 @@ function paintCartItems() {
 function handleQuantityBtn(ev) {
   const clickedBtn = ev.currentTarget;
   if (clickedBtn.classList.contains('js_btn_inc')) {
-    products[0].incQuantity();
+    incQuantity(products[0]);
+    //Aunque aquí ponga que no lo reconoce, sí lo reconoce y funciona. No hacer caso si está introducido dentro del objeto
   } else {
-    products[0].decQuantity();
+    decQuantity(products[0]);
   }
   paintCartItems(); //fuera del If para que se decida lo que se decida en el if se pinta la selección final
 }
