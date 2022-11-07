@@ -2,6 +2,31 @@
 
 //Fetch
 
+let products = [];
+
+function getAPICart() {
+  console.log('pido los datos');
+  // fetch('./api/data.json') //No me funciona la api local (¿lo veremos hoy en la clase invertida?)
+  fetch('https://beta.adalab.es/ejercicios-extra/api/eshop/v1/cart.json')
+    .then(function (response) {
+      console.log('los convierto de texto plano a json de nuevo');
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(
+        'accedo al array de objetos dentro y lo guardo en mi array vacío anteriormente declarado'
+      );
+      products = data.cart.items; //asi llegamos hasta el array de objetos con el queremos operar
+      console.log(
+        'mando llamar las funciones que pintarán esos datos en la página siguiendo x pasos y reglas'
+      );
+      paintTshirts();
+      paintCartItems();
+    });
+}
+
+getAPICart(); //Importante. Si creo la función pero nunca la invoco no sirve para nada
+
 //Elements
 const newTshirtsSection = document.querySelector('.js_Tshirts');
 const shoppingCart = document.querySelector('.js_cart');
@@ -79,9 +104,10 @@ const userInfo = {};
 //Functions
 
 //Tshirts section
+
 function renderTshirt(tshirt) {
   let newTshirt = `<article class="article">`;
-  newTshirt += `<img class="image" src="${tshirt.img}" alt="${tshirt.name}">`;
+  newTshirt += `<img class="image" src="${tshirt.imageUrl}" alt="${tshirt.name}">`;
   newTshirt += `<h3 class="title">${tshirt.name}</h3>`;
   newTshirt += `<p>${tshirt.price}</p>`;
   newTshirt += `<span>-----</span>`;
@@ -202,8 +228,8 @@ function paintSendInfo() {
 }
 
 //Events
-paintTshirts();
-paintCartItems();
+// paintTshirts();
+// paintCartItems();
 userAddress.addEventListener('input', handleSendInfo);
 userCity.addEventListener('input', handleSendInfo);
 userZip.addEventListener('input', handleSendInfo);
