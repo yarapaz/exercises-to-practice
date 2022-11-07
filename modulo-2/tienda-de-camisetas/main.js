@@ -2,12 +2,13 @@
 
 //Fetch
 
+// ('https://beta.adalab.es/ejercicios-extra/api/eshop/v1/cart.json')
 let products = [];
 
 function getAPICart() {
   console.log('pido los datos');
   // fetch('./api/data.json') //No me funciona la api local (¿lo veremos hoy en la clase invertida?)
-  fetch('https://beta.adalab.es/ejercicios-extra/api/eshop/v1/cart.json')
+  fetch('http://127.0.0.1:5500/api/data.json')
     .then(function (response) {
       console.log('los convierto de texto plano a json de nuevo');
       return response.json();
@@ -49,10 +50,6 @@ const sendText = document.querySelector('.js_text');
 //   },
 // };
 //Puedo desarrollar la función como método dentro del mismo objeto o crearla fuera y dentro del objeto llamarla.
-
-function incQuantityFunction(product) {
-  product.quantity += 1;
-}
 
 //Tshirt 2
 // const tshirt_2 = {
@@ -176,17 +173,27 @@ function paintCartItems() {
     shoppingCart.innerHTML += renderCartItem(products[i]);
   }
   shoppingCart.innerHTML += getCartTotal();
-
+  listenCartButtons();
   // const finalPrice =
   //   tshirt_1.price * tshirt_1.quantity + tshirt_2.price * tshirt_2.quantity;
   // const product1 = renderCartItem(tshirt_1);
   // const product2 = renderCartItem(tshirt_2);
   // const total = renderTotalPrice(finalPrice);
   // shoppingCart.innerHTML = product1 + product2 + total;
-  listenCartButtons();
+
   //Debo meter esta función de escucha aquí para completar el circulo constante de suma de cantidades
   //si pongo esta función fuera el flujo es el siguiente: se pinta la cesta, se escucha el boton, haciendo click se pinta una nueva cesta llamando de nuevo a la funcion y FIN. Aunque vuelva a hacer click ya no volverá a activarse el click.
   //Para que se active sin fin debemos: pintar la cesta, dentro de este pinta escuchamos el boton, incrementamos o decrementamos dependiendo de su if y volvemos a pintar la cesta hasta el fin de los tiempos
+}
+
+function incQuantity(product) {
+  product.quantity += 1;
+}
+
+function decQuantity(product) {
+  if (product.quantity > 0) {
+    product.quantity -= 1;
+  }
 }
 
 function handleQuantityBtn(ev) {
@@ -219,12 +226,11 @@ function handleSendInfo(ev) {
   //   } else if (ev.currentTarget.classList.contains('js_city')) {
   //     userInfo.city = ev.currentTarget.value;
   //   }
-
   paintSendInfo();
 }
 
 function paintSendInfo() {
-  sendText.innerHTML = userAddress.value + userCity.value + userZip.value;
+  sendText.innerHTML = userInfo.address + userInfo.city + userInfo.zip;
 }
 
 //Events
