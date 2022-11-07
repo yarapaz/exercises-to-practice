@@ -14,16 +14,16 @@ const tshirt_1 = {
   price: 12.5,
   img: './images/gatito-1.jpg',
   quantity: 1,
+  incQuantity: incQuantityFunction,
   decQuantity: function () {
     if (this.quantity > 0) {
       this.quantity -= 1;
     }
   },
-  incQuantity: incQuantity,
 };
 //Puedo desarrollar la función como método dentro del mismo objeto o crearla fuera y dentro del objeto llamarla.
 
-function incQuantity() {
+function incQuantityFunction() {
   this.quantity += 1;
 }
 
@@ -96,6 +96,22 @@ function renderTotalPrice(totalPrice) {
   return totalRow;
 }
 
+function getFinalPrice() {
+  let total = 0;
+  for (const product of products) {
+    total += product.price * product.quantity;
+  }
+  return total;
+}
+function getCartTotal() {
+  let total = ``;
+  total += `<tr>`;
+  total += `<td colspan='3'>Total</td>`;
+  total += `<td>${getFinalPrice()}€</td>`;
+  total += `</tr>`;
+  return total;
+}
+
 function paintCartItems() {
   //Bucle clásico
   shoppingCart.innerHTML = '';
@@ -103,7 +119,7 @@ function paintCartItems() {
   for (let i = 0; i < products.length; i++) {
     shoppingCart.innerHTML += renderCartItem(products[i]);
   }
-  //Por ahora nos olvidamos de la fila del total
+  shoppingCart.innerHTML += getCartTotal();
 
   // const finalPrice =
   //   tshirt_1.price * tshirt_1.quantity + tshirt_2.price * tshirt_2.quantity;
@@ -120,9 +136,9 @@ function paintCartItems() {
 function handleQuantityBtn(ev) {
   const clickedBtn = ev.currentTarget;
   if (clickedBtn.classList.contains('js_btn_inc')) {
-    tshirt_1.quantity += 1;
+    products[0].incQuantity();
   } else {
-    tshirt_1.decQuantity();
+    products[0].decQuantity();
   }
   paintCartItems(); //fuera del If para que se decida lo que se decida en el if se pinta la selección final
 }
