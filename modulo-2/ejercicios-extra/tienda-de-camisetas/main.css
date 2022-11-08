@@ -3,6 +3,28 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.main {
+  width: 100vw;
+  display: flex;
+}
+.tshirts-list {
+  flex-grow: 1;
+  margin-left: 20px;
+  margin-top: 20px;
+  color: grey;
+}
+
+.shopping-cart {
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+.title2 {
+  color: grey;
+  margin-bottom: 10px;
+}
+
 .image {
   width: 100px;
   height: 100px;
@@ -25,7 +47,16 @@
 
 .table {
   border: 2px solid black;
-  width: 370px;
+  width: 300px;
+  padding: 5px;
+  border: none;
+  border-top: 2px solid grey;
+  border-bottom: 2px solid grey;
+  color: grey;
+}
+
+th {
+  width: 40px;
 }
 
 .form {

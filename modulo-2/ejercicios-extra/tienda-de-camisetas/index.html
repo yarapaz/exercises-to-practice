@@ -12,46 +12,47 @@
 </head>
 
 <body>
-    <main>
-        <h1 class="hidden">Listado de camisetas</h1>
-        <section class="tshirts js_Tshirts">
+    <main class="main js_main">
+        <div class="tshirts-list">
+            <h2>Listado de camisetas</h2>
+            <section class="tshirts js_tshirts"></section>
+        </div>
 
-        </section>
 
-        <section>
-            <article>
-                <h2>Cesta de la compra</h2>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Producto</th>
-                            <th>Precio</th>
-                            <th>Unidades</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody class="js_cart">
+        <div class="shopping-cart">
+            <h2 class="title2">Cesta de la compra</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Unidades</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody class="js_cart"></tbody>
+            </table>
+        </div>
 
-                    </tbody>
-                </table>
-            </article>
-            <article>
-                <h2>¿Dónde te lo enviamos?</h2>
-                <form class="form" action="">
-                    <label for="address">Dirección</label>
-                    <input class="input js_address" type="text" name="address" id="address">
-                    <label for="city">Ciudad</label>
-                    <input class="input js_city" type="text" name="city" id="city">
-                    <label for="zip">Código postal</label>
-                    <input class="input js_zip" type="number" name="zip" id="zip">
-                    <p class="js_text"></p>
-                </form>
-            </article>
+        <!-- <article>
+            <h2>¿Dónde te lo enviamos?</h2>
+            <form class="form" action="">
+                <label for="address">Dirección</label>
+                <input class="input js_address" type="text" name="address" id="address">
+                <label for="city">Ciudad</label>
+                <input class="input js_city" type="text" name="city" id="city">
+                <label for="zip">Código postal</label>
+                <input class="input js_zip" type="number" name="zip" id="zip">
+                <p class="js_text"></p>
+            </form>
+        </article>
         </section>
     </main>
     <footer>
         <small>La tienda de camisetas</small>
-    </footer>
+    </footer> -->
+
+    </main>
     <script src="./main.js"></script>
 </body>
 

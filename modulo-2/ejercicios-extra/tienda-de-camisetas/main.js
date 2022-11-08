@@ -1,102 +1,26 @@
 'use strict';
 
-//Fetch
-
-// ('https://beta.adalab.es/ejercicios-extra/api/eshop/v1/cart.json')
+//Elements
+const newTshirtsSection = document.querySelector('.js_tshirts');
+const shoppingCart = document.querySelector('.js_cart');
 let products = [];
 
-function getAPICart() {
+//Fetch
+// ('https://beta.adalab.es/ejercicios-extra/api/eshop/v1/cart.json')
+
+function getAPIData() {
   console.log('pido los datos');
-  // fetch('./api/data.json') //No me funciona la api local (¿lo veremos hoy en la clase invertida?)
-  fetch('http://127.0.0.1:5500/api/data.json')
-    .then(function (response) {
-      console.log('los convierto de texto plano a json de nuevo');
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(
-        'accedo al array de objetos dentro y lo guardo en mi array vacío anteriormente declarado'
-      );
+  fetch('./api/data.json') //https://beta.adalab.es/ejercicios-extra/api/eshop/v2/cart.json (por qué esta api no me funciona???)
+    .then((response) => response.json())
+    .then((data) => {
       products = data.cart.items; //asi llegamos hasta el array de objetos con el queremos operar
-      console.log(
-        'mando llamar las funciones que pintarán esos datos en la página siguiendo x pasos y reglas'
-      );
+      console.log(products);
       paintTshirts();
       paintCartItems();
     });
 }
 
-getAPICart(); //Importante. Si creo la función pero nunca la invoco no sirve para nada
-
-//Elements
-const newTshirtsSection = document.querySelector('.js_Tshirts');
-const shoppingCart = document.querySelector('.js_cart');
-const userAddress = document.querySelector('.js_address');
-const userCity = document.querySelector('.js_city');
-const userZip = document.querySelector('.js_zip');
-const sendText = document.querySelector('.js_text');
-
-//Tshirt 1
-// const tshirt_1 = {
-//   name: 'Gatincho escondido',
-//   price: 12.5,
-//   img: './images/gatito-1.jpg',
-//   quantity: 1,
-//   incQuantity: incQuantityFunction,
-//   decQuantity: function (product) {
-//     if (product.quantity > 0) {
-//       product.quantity -= 1;
-//     }
-//   },
-// };
-//Puedo desarrollar la función como método dentro del mismo objeto o crearla fuera y dentro del objeto llamarla.
-
-//Tshirt 2
-// const tshirt_2 = {
-//   name: 'Gatincho feliz',
-//   price: 12.0,
-//   img: './images/gatito-2.jpg',
-//   quantity: 1,
-//   decQuantity: function () {
-//     if (this.quantity > 0) {
-//       this.quantity -= 1;
-//     }
-//   },
-// };
-
-//Products array
-//Array con elementos específicos con su nombre de objeto
-// const products = [tshirt_1, tshirt_2];
-
-//array de raiz plana en el que los objetos no tienen nombre, se accede a ellos por su posición
-// const products = [
-//   {
-//     name: 'Gatincho escondido',
-//     price: 12.5,
-//     img: './images/gatito-1.jpg',
-//     quantity: 1,
-//     incQuantity: incQuantityFunction,
-//     decQuantity: function (product) {
-//       if (product.quantity > 0) {
-//         product.quantity -= 1;
-//       }
-//     },
-//   },
-//   {
-//     name: 'Gatincho feliz',
-//     price: 12.0,
-//     img: './images/gatito-2.jpg',
-//     quantity: 1,
-//     decQuantity: function () {
-//       if (this.quantity > 0) {
-//         this.quantity -= 1;
-//       }
-//     },
-//   },
-// ];
-
-//Delivery
-const userInfo = {};
+getAPIData(); //Importante. Si creo la función pero nunca la invoco no sirve para nada
 
 //Functions
 
@@ -115,15 +39,12 @@ function renderTshirt(tshirt) {
 }
 
 function paintTshirts() {
-  //Bucle con un for ... of
-  let tshirt = ''; //se declara fuera porque la utilizaré fuera del for y porque sino en cada vuelta del for se machacará el codigo y lo que quiero es que se sume el codigo
+  let tshirts = ''; //se declara fuera porque la utilizaré fuera del for más adelante y porque sino en cada vuelta del for se machacará el codigo y se sobreescribira y lo que quiero es que se sume el codigo que se vaya generando
   for (const product of products) {
     //para nombre de constante se suele utilizar o item o el nombre del array en singular
-    tshirt += renderTshirt(product);
+    tshirts += renderTshirt(product);
   }
-  newTshirtsSection.innerHTML = tshirt;
-  // const newTshirt1 = renderTshirt(tshirt_1);
-  // const newTshirt2 = renderTshirt(tshirt_2);
+  newTshirtsSection.innerHTML = tshirts;
 }
 
 //Cart section
@@ -215,27 +136,27 @@ function listenCartButtons() {
   btnDecrement.addEventListener('click', handleQuantityBtn);
 }
 
-function handleSendInfo(ev) {
-  const inputName = ev.currentTarget.name;
-  userInfo[inputName] = ev.currentTarget.value;
-  //Como lo hizo Ivan. Aqui utilizo un atributo gancho. Le paso como nombre de la propiedad de ese nuevo objeto vacío declarado anteriormente el vvalor del atributo name de mi inpuyt, que resulta que tiene el mismo nombre que la propiedad que queremos meterle. Después le metemos como valor el value del input que es lo que se ha recogido del evento de tipo input.
+// function handleSendInfo(ev) {
+//   const inputName = ev.currentTarget.name;
+//   userInfo[inputName] = ev.currentTarget.value;
+//   //Como lo hizo Ivan. Aqui utilizo un atributo gancho. Le paso como nombre de la propiedad de ese nuevo objeto vacío declarado anteriormente el vvalor del atributo name de mi inpuyt, que resulta que tiene el mismo nombre que la propiedad que queremos meterle. Después le metemos como valor el value del input que es lo que se ha recogido del evento de tipo input.
 
-  //Forma larga y básica.
-  //   if (ev.currentTarget.classList.contains('js_address')) {
-  //     userInfo.address = ev.currentTarget.value;
-  //   } else if (ev.currentTarget.classList.contains('js_city')) {
-  //     userInfo.city = ev.currentTarget.value;
-  //   }
-  paintSendInfo();
-}
+//   //Forma larga y básica.
+//   //   if (ev.currentTarget.classList.contains('js_address')) {
+//   //     userInfo.address = ev.currentTarget.value;
+//   //   } else if (ev.currentTarget.classList.contains('js_city')) {
+//   //     userInfo.city = ev.currentTarget.value;
+//   //   }
+//   paintSendInfo();
+// }
 
-function paintSendInfo() {
-  sendText.innerHTML = userInfo.address + userInfo.city + userInfo.zip;
-}
+// function paintSendInfo() {
+//   sendText.innerHTML = userInfo.address + userInfo.city + userInfo.zip;
+// }
 
 //Events
 // paintTshirts();
 // paintCartItems();
-userAddress.addEventListener('input', handleSendInfo);
-userCity.addEventListener('input', handleSendInfo);
-userZip.addEventListener('input', handleSendInfo);
+// userAddress.addEventListener('input', handleSendInfo);
+// userCity.addEventListener('input', handleSendInfo);
+// userZip.addEventListener('input', handleSendInfo);
