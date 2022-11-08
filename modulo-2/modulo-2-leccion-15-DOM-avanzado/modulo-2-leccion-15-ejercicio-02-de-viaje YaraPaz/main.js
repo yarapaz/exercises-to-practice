@@ -25,4 +25,4 @@ function handleImage() {
   }
 }
 
-select.addEventListener('change', handleImage);
+select.addEventListener('change', handleImage); //cuando cambiamos algo, un radio, un select, se puede aplicar este evento sobre dicho elemento
