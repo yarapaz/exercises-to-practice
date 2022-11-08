@@ -44,9 +44,10 @@ const list = document.querySelector('.js_list');
 const input = document.querySelector('.js_input');
 let data = [];
 
-function renderCharacter() {
+function renderCharacter(characters) {
+  // a esta función le pasamos el parámetro characters para que dependiendo del array que le pase imprima unos elementos del array u otros
   let html = '';
-  for (const character of data) {
+  for (const character of characters) {
     html += `<li>${character.name}</li><li>${character.gender}</li>`;
   }
   console.log(html);
@@ -55,14 +56,23 @@ function renderCharacter() {
 
 function handleClick(ev) {
   ev.preventDefault();
-  const inputValue = input.value;
-  fetch(`https://swapi.py4e.com/api/people/?search=${inputValue}`)
-    .then((response) => response.json())
-    .then((characters) => {
-      console.log(characters);
-      data = characters.results; //al parametro le pondremos el nombre que queramos y luego guardaremossus resultados en data
-      renderCharacter();
-    });
+  const dataLS = JSON.parse(localStorage.getItem('characters'));
+
+  if (dataLS !== null) {
+    // si está guardado me lo imprime
+    renderCharacter(dataLS);
+  } else {
+    //si el valor no está guardado en el local storage me lo guarda
+    const inputValue = input.value;
+    fetch(`https://swapi.py4e.com/api/people/?search=${inputValue}`)
+      .then((response) => response.json())
+      .then((characters) => {
+        console.log(characters);
+        data = characters.results; //al parametro le pondremos el nombre que queramos y luego guardaremos sus resultados en data
+        renderCharacter(data);
+        localStorage.setItem('characters', JSON.stringify(data)); //le pedimos que despues de pintarlo lo guarde en el localstorage
+      });
+  }
 }
 
 btn.addEventListener('click', handleClick);
