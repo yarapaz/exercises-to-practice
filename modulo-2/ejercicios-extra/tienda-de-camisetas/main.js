@@ -9,14 +9,13 @@ let products = [];
 // ('https://beta.adalab.es/ejercicios-extra/api/eshop/v1/cart.json')
 
 function getAPIData() {
-  console.log('pido los datos');
   fetch('./api/data.json') //https://beta.adalab.es/ejercicios-extra/api/eshop/v2/cart.json (por qué esta api no me funciona???)
     .then((response) => response.json())
     .then((data) => {
       products = data.cart.items; //asi llegamos hasta el array de objetos con el queremos operar
-      console.log(products);
       paintTshirts();
-      paintCartItems();
+      listenAddButtons();
+      // paintCartItems();
     });
 }
 
@@ -32,7 +31,7 @@ function renderTshirt(tshirt) {
   newTshirt += `<h3 class="title">${tshirt.name}</h3>`;
   newTshirt += `<p>${tshirt.price}</p>`;
   newTshirt += `<span>-----</span>`;
-  newTshirt += `<button>Añadir a la cesta</button>`;
+  newTshirt += `<button class="js_add_product">Añadir a la cesta</button>`;
   newTshirt += `</article>`;
 
   return newTshirt;
@@ -45,6 +44,16 @@ function paintTshirts() {
     tshirts += renderTshirt(product);
   }
   newTshirtsSection.innerHTML = tshirts;
+}
+
+function handleAddBtnClick() {}
+
+function listenAddButtons() {
+  const productBtns = document.querySelectorAll('.js_add_product');
+  console.log(productBtns);
+  for (const btn of productBtns) {
+    btn.addEventListener('click', handleAddBtnClick);
+  }
 }
 
 //Cart section
