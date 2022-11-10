@@ -44,8 +44,8 @@ function paintTshirts() {
 
 function incProduct(ev) {
   ev.preventDefault();
-  //Obtengo el id del producto clickado
-  const clickedId = parseInt(ev.target.dataset.id); //dataset es un objeto con propiedades
+  //Obtengo el id del producto clickado para poder saber sobre qué elemento estoy haciendo click
+  const clickedId = parseInt(ev.target.dataset.id); //dataset es un objeto con propiedades, con el atributo data-id se lo he añadido a los botones. Este atributo nso ayuda a saber o identificar sobre qué elemento hemos hecho click. He amañado que el id de los botones sea el mismo que el de los objetos que representan a cada articulo
   let foundItem;
   //Compruebo si está en la cesta
   for (const item of cart) {
@@ -113,7 +113,6 @@ function renderCartTotal() {
   total += `<td colspan='3'>Total</td>`;
   total += `<td>${getFinalPrice()}€</td>`;
   total += `</tr>`;
-  console.log(total);
   return total;
 }
 
