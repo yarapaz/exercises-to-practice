@@ -1,37 +1,32 @@
 'use strict';
 
-//Elements
+//ELEMENTS
 const newTshirtsSection = document.querySelector('.js_tshirts');
 const shoppingCart = document.querySelector('.js_cart');
 let products = [];
+let cart = [];
 
-//Fetch
+//FETCH
 // ('https://beta.adalab.es/ejercicios-extra/api/eshop/v1/cart.json')
-
 function getAPIData() {
   fetch('./api/data.json') //https://beta.adalab.es/ejercicios-extra/api/eshop/v2/cart.json (por qué esta api no me funciona???)
     .then((response) => response.json())
     .then((data) => {
       products = data.cart.items; //asi llegamos hasta el array de objetos con el queremos operar
       paintTshirts();
-      listenAddButtons();
-      // paintCartItems();
     });
 }
 
-getAPIData(); //Importante. Si creo la función pero nunca la invoco no sirve para nada
+//FUNCTIONS
 
-//Functions
-
-//Tshirts section
-
+//1. TSHIRTS SECTION
 function renderTshirt(tshirt) {
   let newTshirt = `<article class="article">`;
   newTshirt += `<img class="image" src="${tshirt.imageUrl}" alt="${tshirt.name}">`;
   newTshirt += `<h3 class="title">${tshirt.name}</h3>`;
   newTshirt += `<p>${tshirt.price}</p>`;
   newTshirt += `<span>-----</span>`;
-  newTshirt += `<button class="js_add_product">Añadir a la cesta</button>`;
+  newTshirt += `<button class="js_add_product" data-id="${tshirt.id}">Añadir a la cesta</button>`;
   newTshirt += `</article>`;
 
   return newTshirt;
@@ -44,54 +39,81 @@ function paintTshirts() {
     tshirts += renderTshirt(product);
   }
   newTshirtsSection.innerHTML = tshirts;
+  listenAddButtons();
 }
 
-function handleAddBtnClick() {}
+function incProduct(ev) {
+  ev.preventDefault();
+  //Obtengo el id del producto clickado
+  const clickedId = parseInt(ev.target.dataset.id); //dataset es un objeto con propiedades
+  let foundItem;
+  //Compruebo si está en la cesta
+  for (const item of cart) {
+    if (item.id === clickedId) {
+      foundItem = item;
+    }
+  }
+  //Si no está en la cesta añademelo / si SI está en la cesta entonces aumenta su cantidad
+  let foundTshirt;
+  if (foundItem === undefined) {
+    for (let i = 0; i < products.length; i++) {
+      if (products[i].id === clickedId) {
+        foundTshirt = products[i];
+      }
+    }
+    cart.push({
+      name: foundTshirt.name,
+      price: foundTshirt.price,
+      imageUrl: foundTshirt.imageUrl,
+      description: foundTshirt.description,
+      sizes: foundTshirt.sizes,
+      quantity: foundTshirt.quantity,
+      id: foundTshirt.id,
+    });
+  } else {
+    foundItem.quantity += 1;
+  }
+  paintCartItems();
+  setInLocalStorage();
+}
 
 function listenAddButtons() {
   const productBtns = document.querySelectorAll('.js_add_product');
-  console.log(productBtns);
   for (const btn of productBtns) {
-    btn.addEventListener('click', handleAddBtnClick);
+    btn.addEventListener('click', incProduct);
   }
 }
 
-//Cart section
-function renderCartItem(tshirt) {
-  let newCartItem = `<tr>`;
-  newCartItem += `<td>${tshirt.name}</td>`;
-  newCartItem += `<td>${tshirt.price}</td>`;
+//CART SECTION
+function renderCartItem(product) {
+  let newCartItem = '';
+  newCartItem += `<tr>`;
+  newCartItem += `<td>${product.name}</td>`;
+  newCartItem += `<td>${product.price}</td>`;
   newCartItem += `<td>`;
-  newCartItem += `<button class="js_btn_dec">-</button>`;
-  newCartItem += `${tshirt.quantity}`;
-  newCartItem += `<button class="js_btn_inc">+</button>`;
+  newCartItem += `<button class="js_btn_dec" data-id="${product.id}">-</button>`;
+  newCartItem += `${product.quantity}`;
+  newCartItem += `<button class="js_btn_inc" data-id="${product.id}">+</button>`;
   newCartItem += `</td>`;
-  newCartItem += `<td>${tshirt.price * tshirt.quantity}</td>`;
+  newCartItem += `<td>${product.price * product.quantity}</td>`;
   return newCartItem;
-}
-
-function renderTotalPrice(totalPrice) {
-  let totalRow = ``;
-  totalRow += `<tr>`;
-  totalRow += `<td colspan='3'>Total</td>`;
-  totalRow += `<td>${totalPrice}</td>`;
-  totalRow += `</tr>`;
-  return totalRow;
 }
 
 function getFinalPrice() {
   let total = 0;
-  for (const product of products) {
+  for (const product of cart) {
     total += product.price * product.quantity;
   }
   return total;
 }
-function getCartTotal() {
+
+function renderCartTotal() {
   let total = ``;
   total += `<tr>`;
   total += `<td colspan='3'>Total</td>`;
   total += `<td>${getFinalPrice()}€</td>`;
   total += `</tr>`;
+  console.log(total);
   return total;
 }
 
@@ -99,73 +121,61 @@ function paintCartItems() {
   //Bucle clásico
   shoppingCart.innerHTML = '';
 
-  for (let i = 0; i < products.length; i++) {
-    shoppingCart.innerHTML += renderCartItem(products[i]);
+  for (let i = 0; i < cart.length; i++) {
+    shoppingCart.innerHTML += renderCartItem(cart[i]);
   }
-  shoppingCart.innerHTML += getCartTotal();
+  shoppingCart.innerHTML += renderCartTotal();
   listenCartButtons();
-  // const finalPrice =
-  //   tshirt_1.price * tshirt_1.quantity + tshirt_2.price * tshirt_2.quantity;
-  // const product1 = renderCartItem(tshirt_1);
-  // const product2 = renderCartItem(tshirt_2);
-  // const total = renderTotalPrice(finalPrice);
-  // shoppingCart.innerHTML = product1 + product2 + total;
-
   //Debo meter esta función de escucha aquí para completar el circulo constante de suma de cantidades
   //si pongo esta función fuera el flujo es el siguiente: se pinta la cesta, se escucha el boton, haciendo click se pinta una nueva cesta llamando de nuevo a la funcion y FIN. Aunque vuelva a hacer click ya no volverá a activarse el click.
   //Para que se active sin fin debemos: pintar la cesta, dentro de este pinta escuchamos el boton, incrementamos o decrementamos dependiendo de su if y volvemos a pintar la cesta hasta el fin de los tiempos
 }
 
-function incQuantity(product) {
-  product.quantity += 1;
-}
-
-function decQuantity(product) {
-  if (product.quantity > 0) {
-    product.quantity -= 1;
+function decProduct(ev) {
+  ev.preventDefault();
+  const clickedId = parseInt(ev.target.dataset.id);
+  let foundItem;
+  for (const item of cart) {
+    if (item.id === clickedId) {
+      foundItem = item;
+    }
   }
-}
-
-function handleQuantityBtn(ev) {
-  const clickedBtn = ev.currentTarget;
-  if (clickedBtn.classList.contains('js_btn_inc')) {
-    incQuantity(products[0]);
-    //Aunque aquí ponga que no lo reconoce, sí lo reconoce y funciona. No hacer caso si está introducido dentro del objeto
+  if (foundItem.quantity > 1) {
+    foundItem.quantity -= 1;
   } else {
-    decQuantity(products[0]);
+    const itemIndex = cart.findIndex((item) => item.id === foundItem.id);
+    cart.splice(itemIndex, 1);
   }
-  paintCartItems(); //fuera del If para que se decida lo que se decida en el if se pinta la selección final
+  paintCartItems();
+  setInLocalStorage();
 }
 
 function listenCartButtons() {
-  const btnIncrement = document.querySelector('.js_btn_inc');
-  const btnDecrement = document.querySelector('.js_btn_dec');
+  const incBtns = document.querySelectorAll('.js_btn_inc');
+  const decBtns = document.querySelectorAll('.js_btn_dec');
+  for (const btn of incBtns) {
+    btn.addEventListener('click', incProduct); //Si aqui le aplico la misma funcion que tengo para añadir elementos nuevos al carrito es más facil porque no tengo que repetir codigo innecesario. Para ello debemos darle a los botones el mismo data-id del producto como atributo gancho.
+  }
+  for (const btn of decBtns) {
+    btn.addEventListener('click', decProduct);
+  }
   //Debo llamar aquí a los botones, despues de su creacion con la invocación de la funcion pintadora de elementos del carrito porque hasta este momento no existian pero ahora sí existen
-  btnIncrement.addEventListener('click', handleQuantityBtn);
-  btnDecrement.addEventListener('click', handleQuantityBtn);
 }
 
-// function handleSendInfo(ev) {
-//   const inputName = ev.currentTarget.name;
-//   userInfo[inputName] = ev.currentTarget.value;
-//   //Como lo hizo Ivan. Aqui utilizo un atributo gancho. Le paso como nombre de la propiedad de ese nuevo objeto vacío declarado anteriormente el vvalor del atributo name de mi inpuyt, que resulta que tiene el mismo nombre que la propiedad que queremos meterle. Después le metemos como valor el value del input que es lo que se ha recogido del evento de tipo input.
+function setInLocalStorage() {
+  const stringifyCart = JSON.strongidy(cart);
+  localStorage.setItem('cart', stringifyCart);
+}
 
-//   //Forma larga y básica.
-//   //   if (ev.currentTarget.classList.contains('js_address')) {
-//   //     userInfo.address = ev.currentTarget.value;
-//   //   } else if (ev.currentTarget.classList.contains('js_city')) {
-//   //     userInfo.city = ev.currentTarget.value;
-//   //   }
-//   paintSendInfo();
-// }
+function getFromLocalStorage() {
+  const localStorageCart = localStorage.getItem('cart');
+  if (localStorageCart !== null) {
+    //este if se debe hacer siempre para comprobar si nuestro local storage está lleno o no
+    cart = JSON.parse(localStorageCart);
+    paintCartItems();
+  }
+}
 
-// function paintSendInfo() {
-//   sendText.innerHTML = userInfo.address + userInfo.city + userInfo.zip;
-// }
-
-//Events
-// paintTshirts();
-// paintCartItems();
-// userAddress.addEventListener('input', handleSendInfo);
-// userCity.addEventListener('input', handleSendInfo);
-// userZip.addEventListener('input', handleSendInfo);
+//START APP
+getAPIData();
+paintCartItems();

@@ -7,7 +7,8 @@
         "imageUrl": "//beta.adalab.es/ejercicios-extra/api/eshop/assets/images/node-js.jpg",
         "description": "Camiseta de Node JS",
         "sizes": ["s", "l", "xl"],
-        "quantity": 0
+        "quantity": 1,
+        "id": 1
       },
       {
         "name": "JavaScript",
@@ -15,7 +16,8 @@
         "imageUrl": "//beta.adalab.es/ejercicios-extra/api/eshop/assets/images/javascript.jpg",
         "description": "Camiseta de JavaScript",
         "sizes": ["l", "xl", "xxl"],
-        "quantity": 0
+        "quantity": 1,
+        "id": 2
       },
       {
         "name": "React JS",
@@ -23,7 +25,8 @@
         "imageUrl": "//beta.adalab.es/ejercicios-extra/api/eshop/assets/images/react.jpg",
         "description": "Camiseta de React JS",
         "sizes": ["s", "m", "l"],
-        "quantity": 0
+        "quantity": 1,
+        "id": 3
       }
     ]
   }
