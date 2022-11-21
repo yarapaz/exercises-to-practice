@@ -1,8 +1,10 @@
 import '../styles/App.scss';
+import goodForces from '../images/good-forces.png';
+import evilForces from '../images/evil-forces.jpg';
 
 function App() {
   return (
-    <main class='main'>
+    <main className='main'>
       <article class='playground'>
         <h1 className='title_1 uppercase'>Juego</h1>
         <h2 className='title_2 uppercase'>Los anillos de poder</h2>
@@ -35,11 +37,11 @@ function App() {
           <section className='images'>
             <div
               className='image--user js_user_image'
-              style={{ backgroundImage: `url('./images/good-forces.jpg')` }}
+              style={{ backgroundImage: `url(${goodForces})` }}
             ></div>
             <div
               className='image--computer js_computer_image'
-              style={{ backgroundImage: `url('./images/evil-forces.jpg')` }}
+              style={{ backgroundImage: `url(${evilForces})` }}
             ></div>
           </section>
           <section className='names'>
