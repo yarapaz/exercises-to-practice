@@ -1,0 +1,303 @@
+:root {
+  --primary-color: rgb(112, 7, 7);
+  --secondary-color: grey;
+  --main-font-family: 'Open Sans', sans-serif;
+}
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main {
+  width: 100vw;
+  display: flex;
+  flex-direction: row-reverse;
+  font-family: var(--main-font-family);
+}
+.playground {
+  margin: 20px 500px 0px 20px;
+  width: 80%;
+}
+.title_1 {
+  color: var(--secondary-color);
+  letter-spacing: 4px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+.title_2 {
+  color: var(--primary-color);
+  margin-bottom: 30px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  font-size: 2rem;
+}
+
+.text_1 {
+  color: var(--secondary-color);
+  font-weight: 700;
+  margin-bottom: 30px;
+  line-height: 20px;
+  width: 370px;
+}
+
+.text_2 {
+  display: block;
+  width: 370px;
+  font-weight: 900;
+  line-height: 20px;
+}
+.form {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.select {
+  opacity: calc(0.5);
+  padding: 5px;
+  border: 2px solid var(--secondary-color);
+}
+.btn {
+  background-color: var(--primary-color);
+  color: white;
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+}
+.text_3 {
+  background-color: var(--primary-color);
+  width: 370px;
+  text-align: center;
+  padding: 9px;
+  color: white;
+  border-radius: 5px;
+  opacity: calc(0.3);
+  line-height: 20px;
+}
+.aside {
+  background-image: url('../images/background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 20%;
+  height: 100vh;
+}
+.races {
+  width: 370px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+.images {
+  display: flex;
+  justify-content: space-around;
+  width: 370px;
+  gap: 10px;
+}
+
+.image--user {
+  width: 100px;
+  height: 100px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin-top: 20px;
+}
+
+.image--computer {
+  width: 100px;
+  height: 100px;
+  margin-top: 20px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.names {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 370px;
+}
+
+.name--user {
+  text-align: center;
+  width: 100px;
+  position: relative;
+  right: 10.3%;
+}
+
+.name--computer {
+  width: 115px;
+  text-align: center;
+  position: relative;
+  left: 12.5%;
+}
+.scores {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  width: 370px;
+  gap: 40px;
+}
+
+.title_3 {
+  color: var(--primary-color);
+  font-weight: 900;
+}
+
+.counter {
+  display: flex;
+  gap: 20px;
+}
+.computer {
+  margin-left: 50px;
+}
+.uppercase {
+  text-transform: uppercase;
+}
+
+.hidden {
+  display: none;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
