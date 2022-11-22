@@ -4,7 +4,7 @@ import adalabLogo from '../images/adalab-logo.png';
 import { useState } from 'react';
 
 function App() {
-  //State
+  //States
   const [composeIsOpen, setComposeIsOpen] = useState(false);
   const [composeText, setComposeText] = useState('');
 
@@ -22,7 +22,6 @@ function App() {
   };
 
   //Render helpers
-
   const renderHeader = () => {
     return (
       <header className='header'>
