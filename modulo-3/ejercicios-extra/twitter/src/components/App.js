@@ -1,13 +1,14 @@
 import '../styles/App.scss';
 import adalabBanner from '../images/adalab-banner.jpg';
 import adalabLogo from '../images/adalab-logo.png';
-import tweets from '../data/tweets.json'; //traiga el array de un archivo json a modo api local
+import tweetsData from '../data/tweets.json'; //traiga el array de un archivo json a modo api local
 import { useState } from 'react';
 
 function App() {
   //States
   const [composeIsOpen, setComposeIsOpen] = useState(false);
   const [composeText, setComposeText] = useState('');
+  const [tweets, setTweets] = useState(tweetsData);
 
   //Events
   const handleToggleCompose = () => {
@@ -20,8 +21,21 @@ function App() {
 
   const handleComposeSubmit = (ev) => {
     ev.preventDefault();
+    tweets.unshift({
+      id: '0as8fdsdf',
+      avatar: 'http://localhost:3000/assets/avatars/user-4.jpg',
+      user: 'Concha Asensio',
+      username: 'conchaasensio',
+      date: '3 sep. 2021',
+      text: composeText, //porque el texto quiero que sea el que escriba yo en el tweet
+      comments: 1,
+      retweets: 3,
+      likes: 13,
+    });
+    setTweets([...tweets]); //si no hacemos el spread nos pintará la pagina de nuevo con los mismos datos
+    setComposeIsOpen(false); //cierra la seccion una vez hacemos click en el boton
+    setComposeText(''); //vacia el textarea una vez cerramos el tweet para que no se quede ahi por siempre
   };
-
   //Render helpers
   const renderHeader = () => {
     return (
@@ -69,7 +83,7 @@ function App() {
   };
 
   const renderTweets = () => {
-    return tweets.map((tweet) => {
+    return tweetsData.map((tweet) => {
       //mappeamos el array traido ficcionalmente desde la api
       return (
         <li key={tweet.id}>
