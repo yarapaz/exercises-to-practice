@@ -4,7 +4,7 @@ import { useState } from 'react';
 function App() {
   const [numberA, setNumberA] = useState(0);
   const [numberB, setNumberB] = useState(0);
-  let [operation, setOperation] = useState('');
+  const [operation, setOperation] = useState('');
 
   const handleNumberA = (ev) => {
     setNumberA(ev.target.value);
@@ -15,8 +15,8 @@ function App() {
   };
 
   const handleSelect = (ev) => {
-    operation = ev.target.value;
-    setOperation(operation);
+    // operation = ev.target.value; si hago esto me obligará a cambiar el const a let en el estado y NO se debe hacer. Utilizamos la función de set para hacer cambios sobre el elemento
+    setOperation(ev.target.value);
   };
 
   const renderTotal = () => {
