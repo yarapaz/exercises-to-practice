@@ -1,7 +1,7 @@
 import '../styles/App.scss';
 import adalabBanner from '../images/adalab-banner.jpg';
 import adalabLogo from '../images/adalab-logo.png';
-import tweetsData from '../data/tweets.json'; //traiga el array de un archivo json a modo api local
+import tweetsData from '../data/tweets.json'; //trae el array de un archivo json a modo api local
 import { useState } from 'react';
 
 function App() {
@@ -36,6 +36,7 @@ function App() {
     setComposeIsOpen(false); //cierra la seccion una vez hacemos click en el boton
     setComposeText(''); //vacia el textarea una vez cerramos el tweet para que no se quede ahi por siempre
   };
+
   //Render helpers
   const renderHeader = () => {
     return (
