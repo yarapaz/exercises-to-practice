@@ -1,104 +1,93 @@
-// Fichero src/components/App.js
+import '../styles/App.scss';
 import { useState } from 'react';
 
-const App = () => {
-  // Estados
-
-  const [series, setSeries] = useState([
-    { id: '123', name: 'Juego de tronos' },
-    { id: '456', name: 'Las chicas Gilmore' },
-    { id: '678', name: 'Gambita de Dama' },
+function App() {
+  //States
+  const [tasks, setTasks] = useState([
+    { task: 'Comprar harina, jamón y pan rallado', completed: true },
+    { task: 'Hacer croquetas ricas', completed: true },
+    { task: 'Ir a la puerta de un gimnasio', completed: false },
+    {
+      task: 'Comerme las croquetas mirando a la gente que entra en el gimnasio',
+      completed: false,
+    },
   ]);
   const [searchName, setSearchName] = useState('');
-  const [searchIsFavorite, setSearchIsFavorite] = useState(false);
-  const [favorites, setFavorites] = useState([]);
+  const [completedTask, setCompletedTask] = useState(2);
+  const [toDoTask, setToDoTask] = useState(2);
 
-  // Eventos
-
-  const handleFavorite = (ev) => {
-    const clickedSerieId = ev.currentTarget.id;
-    const foundSerie = series.find((serie) => serie.id === clickedSerieId);
-    foundSerie.isFavorite = !foundSerie.isFavorite;
-    setSeries([...series]);
+  //Handlers
+  const handleClick = (ev) => {
+    const taskId = ev.currentTarget.id; //Reconozco sobre que elemento he hecho click con su id, que coincide en este caso justo con su posicion en el array porque le he pedido que su id o key sea igual a su posicion porque los elementos no tenian un id ya asignado
+    const selectedTask = tasks[taskId]; //Meto en esta variable el elemento que encuentre dentro del array de tasks en esta posicion
+    selectedTask.completed = !selectedTask.completed; //Cambio su valor completed
+    setTasks([...tasks]); //Actualizo los datos en el array inicial
+    updateCounters(); //actualiza contadores recorriendo el nuevo array actualizado
   };
 
-  const handleSearchName = (ev) => {
+  const handleInput = (ev) => {
     setSearchName(ev.target.value);
   };
 
-  const handleSearchIsFavorite = (ev) => {
-    setSearchIsFavorite(ev.target.checked);
-  };
-
-  const arrayRemove = (array, value) => {
-    return array.filter((ele) => {
-      return ele != value;
+  const updateCounters = () => {
+    let complete = 0;
+    let todo = 0;
+    tasks.forEach((eachTask) => {
+      if (eachTask.completed === true) {
+        complete++;
+      } else {
+        todo++;
+      }
     });
-  }; //funcion eliminadora de elementos del array (lo que hace es recorrerme el array y buscarme que los elementos por los que pase no sean iguales al valur que le ha pasado y me los irá metiendo dentro de este nuevo array filtrado). Al final me devuelve el array filtrado sin el elemento que queria eliminar.
-
-  // Funciones de renderizado
-
-  const renderSeries = () => {
-    return (
-      series
-        // Filtramos por nombre
-        .filter((serie) => {
-          return serie.name.toLowerCase().includes(searchName.toLowerCase());
-        })
-        // Filtramos por favorita
-        .filter((serie) => {
-          if (searchIsFavorite === true) {
-            favorites.push(serie);
-            arrayRemove(series, serie);
-          } else {
-            return true;
-          }
-        })
-        // Mapeamos
-        .map((serie) => {
-          if (favorites.length === 0) {
-            favorites.forEach((eachserie) => {
-              <li key={eachserie.id} id={eachserie.id} onClick={handleFavorite}>
-                <h2>{eachserie.name}</h2>
-                <p>Es mi serie favorita: Si</p>
-              </li>;
-            });
-          } else {
-            return (
-              <li key={serie.id} id={serie.id} onClick={handleFavorite}>
-                <h2>{serie.name}</h2>
-                <p>Es mi serie favorita: {serie.isFavorite ? 'Sí' : 'No'}</p>
-              </li>
-            );
-          }
-        })
-    );
+    setCompletedTask(complete);
+    setToDoTask(todo);
   };
 
+  // const resetCounters = () => {
+  //   setCompletedTask(0);
+  //   setToDoTask(0);
+  // };
+
+  //Renders
+  const renderTasks = () => {
+    return tasks
+      .filter((eachTask) => {
+        if (eachTask.task.includes(searchName)) {
+          return eachTask;
+        }
+        return eachTask;
+      })
+      .map((eachTask, i) => {
+        if (eachTask.completed === true) {
+          return (
+            <li key={i} className='crossed' id={i} onClick={handleClick}>
+              {eachTask.task}
+            </li>
+          );
+        } else {
+          return (
+            <li key={i} id={i} onClick={handleClick}>
+              {eachTask.task}
+            </li>
+          );
+        }
+      });
+  };
+
+  //Return
   return (
-    <div>
-      <h1>Lista de series:</h1>
-
-      <ul>{renderSeries()}</ul>
-
-      <form>
-        <label htmlFor='searchName'>Buscar por nombre de serie</label>
-        <input
-          type='text'
-          id='searchName'
-          value={searchName}
-          onChange={handleSearchName}
-        />
-        <label htmlFor='searchIsFavorite'>Mostrar solo las favoritas</label>
-        <input
-          type='checkbox'
-          id='searchIsFavorite'
-          checked={searchIsFavorite}
-          onChange={handleSearchIsFavorite}
-        />
+    <>
+      <h1>Mi lista de tareas</h1>
+      <ol>{renderTasks()}</ol>
+      <form action=''>
+        <label htmlFor=''></label>
+        <input type='text' value={searchName} onChange={handleInput} />
       </form>
-    </div>
+      <p>Tareas totales: {tasks.length}</p>
+      <p>Tareas completadas: {completedTask}</p>
+      <p>Tareas pendientes: {toDoTask}</p>
+    </>
   );
-};
+}
 
 export default App;
