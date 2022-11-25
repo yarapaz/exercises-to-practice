@@ -13,9 +13,7 @@ const App = () => {
   ]);
   const [searchName, setSearchName] = useState('');
   const [searchIsFavorite, setSearchIsFavorite] = useState(false);
-  const [favorites, setFavorites] = useState([
-    { id: '123', name: 'Juego de tronos' },
-  ]);
+  const [favorites, setFavorites] = useState([]);
 
   // Eventos
 
@@ -55,20 +53,22 @@ const App = () => {
   const renderfavorite = (el) => {
     //Usar un FIND antes que un FOREACH es mas acertado porque recorre el array de favoritos y solo saca el si o el no una vez ha recorrido todo el array y me suelta las conclusiones. No va con cada elemento
     if (favorites.length !== 0) {
-      //Esta función no pinta nada, da vacío. el find solo devuelve true o false, tengo que usar findindex o true o false. usar bien el find
-      const answer = favorites.find((eachFav) => {
-        if (eachFav.id === el.id) {
-          return 'Sí';
-        } else {
-          return 'No';
-        }
-      });
-      return answer;
+      const result = favorites.find((eachFav) => eachFav.id === el.id);
+      //Poner o undefined o null, dependiendo de lo que devuelva
+      if (result !== undefined) {
+        return true;
+      } else {
+        return false;
+      }
     } else {
-      //esta función sí que pinta todo
-      return 'No';
+      return false;
     }
   };
+  //Que hacemos en esta funcion anterior?? Muy sencillo. Le pido haga varias cosas:
+  //1. Verificamos si el array de favoritos esta lleno o no. Si esta vacio retorno false directamente. Si está lleno paso al paso 2.
+  //2. Recorro la lista de favoritos lanzando un find diciendome: "oye, si el id del objeto que te he pasado como parametro coincide con el id del objeto del array de favoritos por el que estas pasando metemelo dentro de la constante result".
+  //3. Si result esta lleno, entonces me devuelves true. Si esta vacio me devuelves false
+  //¿Por que necesito true o false? Porque to este booleano lo uso (muy utilizado en react) para despues en el ternario de la seccion en la que está este renderFavorite le digo: "si la respuesta es true, me pintas esto, pero si es false, me pintas esto". FIN DE LA CUESTION
 
   const renderSeries = () => {
     return (
@@ -99,7 +99,7 @@ const App = () => {
             //El si o el no aparecerán dependiendo de: si la pelicula está en favoritos o no
             <li key={serie.id} id={serie.id} onClick={handleFavorite}>
               <h2>{serie.name}</h2>
-              <p>Es mi serie favorita: {renderfavorite(serie)}</p>
+              <p>Es mi serie favorita: {renderfavorite(serie) ? 'Sí' : 'No'}</p>
             </li>
             //me devolvia solo un SI o solo un NO porque el array de inFAV solo tenia un elemento al machacarse en cada vuelta de la iteracion. Esto ocurre cuando hacemos un filter dentro de otro filter.
           );
