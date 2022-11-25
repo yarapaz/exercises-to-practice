@@ -55,7 +55,7 @@ const App = () => {
   const renderfavorite = (el) => {
     //Usar un FIND antes que un FOREACH es mas acertado porque recorre el array de favoritos y solo saca el si o el no una vez ha recorrido todo el array y me suelta las conclusiones. No va con cada elemento
     if (favorites.length !== 0) {
-      //Esta función no pinta nada, da vacío
+      //Esta función no pinta nada, da vacío. el find solo devuelve true o false, tengo que usar findindex o true o false. usar bien el find
       const answer = favorites.find((eachFav) => {
         if (eachFav.id === el.id) {
           return 'Sí';
