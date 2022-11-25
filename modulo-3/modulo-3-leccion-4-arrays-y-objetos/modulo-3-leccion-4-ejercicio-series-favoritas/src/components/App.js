@@ -1,7 +1,7 @@
 // Fichero src/components/App.js
 import { useState } from 'react';
 
-//NO consigo que cambie del SI al NO y que me haga caso el checkbox de favoritos
+//Me reconoce las series como favoritas pero no me hace el si y el no bien
 
 const App = () => {
   // Estados
@@ -13,7 +13,9 @@ const App = () => {
   ]);
   const [searchName, setSearchName] = useState('');
   const [searchIsFavorite, setSearchIsFavorite] = useState(false);
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState([
+    { id: '123', name: 'Juego de tronos' },
+  ]);
 
   // Eventos
 
@@ -29,8 +31,8 @@ const App = () => {
     } else {
       favorites.splice(foundSerieIndex, 1);
     }
-    console.log(favorites);
     setFavorites([...favorites]);
+    setSeries([...series]);
   };
 
   const handleSearchName = (ev) => {
@@ -51,21 +53,24 @@ const App = () => {
   // Funciones de renderizado
 
   const renderfavorite = (el) => {
-    if (favorites.length === 0) {
-      return 'No';
-    } else {
-      favorites.forEach((eachFav) => {
-        if (eachFav === el) {
+    //Usar un FIND antes que un FOREACH es mas acertado porque recorre el array de favoritos y solo saca el si o el no una vez ha recorrido todo el array y me suelta las conclusiones. No va con cada elemento
+    if (favorites.length !== 0) {
+      //Esta función no pinta nada, da vacío
+      const answer = favorites.find((eachFav) => {
+        if (eachFav.id === el.id) {
           return 'Sí';
         } else {
           return 'No';
         }
       });
+      return answer;
+    } else {
+      //esta función sí que pinta todo
+      return 'No';
     }
   };
 
   const renderSeries = () => {
-    let inFav = [];
     return (
       series
         // Filtramos por nombre
@@ -75,20 +80,21 @@ const App = () => {
         // Mapeamos
         .filter((serie) => {
           if (searchIsFavorite) {
-            favorites.filter((eachSerie) => {
-              if (eachSerie === serie) {
-                inFav.push(eachSerie);
-              }
-            });
-            //le pido que en caso de que el checkbox de "mostrar solo favoritas" este clickado y de true me filtre cuales son favoritas, me las guarde en un array vacio declarado fuera y luego me devuelva ese array como resultado final del segundo filter que es lo que le pasaré al map. Es necesario declarar un array vacio fuera porque sino en cada iteracion me machacará el que ya tengo y lo sobreescribira con el nuevo, como en el filter de Blanca. Además, solo hara el push cuando se produzca el match, porque sino me meterá un dato vacio de mas dentro de mi array de fuera.
-            return inFav;
+            const found = favorites.find(
+              (eachSerie) => eachSerie.id === serie.id
+            );
+            return found;
+            // - Para comparar dos arrays y encontrar que elementos son semejantes puedo:
+            //1. Recorrer con un filter el array 1. Dentro de su array nuevo creado con el filtro meteré el resultado de este filtro
+            //2. Recorro el otro array con un find que me buscará que elemento del array 2 coincide exactamente con el elemento por el que estoy pasando del array 1. Como solo tiene que ser uno, nos vale. Para comparar elementos se debe hacer SIEMPRE CON UNA PROPIEDAD DEL OBJETO, y NUNCA con el objeto en si mismo porque sino no funciona
+            //3. Una vez encontrado el elemento lo meto en el array nuevo creado con el filter con un return, siempre debemos retornar algo.
           } else {
             return true; //si le digo que me devuelva TRUE quiere decir que todo es verdadero asi que literalmente me devuelve todo el array que tengo sin filtrarmelo.
           }
         })
         .map((serie) => {
-          console.log(serie);
           //Hacemos el cambio de objetos a elementos html
+          console.log(serie);
           return (
             //El si o el no aparecerán dependiendo de: si la pelicula está en favoritos o no
             <li key={serie.id} id={serie.id} onClick={handleFavorite}>
