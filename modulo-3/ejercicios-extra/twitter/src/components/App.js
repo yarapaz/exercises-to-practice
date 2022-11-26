@@ -1,14 +1,34 @@
 import '../styles/App.scss';
 import adalabBanner from '../images/adalab-banner.jpg';
 import adalabLogo from '../images/adalab-logo.png';
-import tweetsData from '../data/tweets.json'; //trae el array de un archivo json a modo api local
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import callToApi from '../services/api';
+import ls from '../services/localStorage';
 
 function App() {
   //States
   const [composeIsOpen, setComposeIsOpen] = useState(false);
-  const [composeText, setComposeText] = useState('');
-  const [tweets, setTweets] = useState(tweetsData);
+  //Es una práctica muy habitual llamar al ls y que cuando esté vacío me devuelva un valor por defecto
+  const [composeText, setComposeText] = useState(ls.get('composeText', ''));
+  const [tweets, setTweets] = useState([]);
+
+  //Effects
+  //Aqui mando llamar a todos los datos de la api al arrancar la página
+  //1. Poner el array vacio indica que solo se ejecutará una vez
+  //2. No poner nada hará que se lance en loop eterno
+  //3. Poner un estado o algo indica que solo se lanzará cuando los datos de ese estado cambien
+  useEffect(() => {
+    callToApi().then((data) => {
+      setTweets(data);
+    });
+  }, []);
+
+  //Este use effect le indico que solo se ejecute cuando el composetext cambie.
+  //1. La primera vez se ejecuta segun arranca la pagina
+  //2. Y la segunda cuando escribo en el composeText porque su estado cambia.
+  useEffect(() => {
+    ls.set('composeText', composeText);
+  }, [composeText]);
 
   //Events
   const handleToggleCompose = () => {
@@ -84,7 +104,7 @@ function App() {
   };
 
   const renderTweets = () => {
-    return tweetsData.map((tweet) => {
+    return tweets.map((tweet) => {
       //mappeamos el array traido ficcionalmente desde la api
       return (
         <li key={tweet.id}>
