@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+}
+
+.menu {
+  display: flex;
+  gap: 50px;
+}
+
+.overview {
+  color: blue;
+}
+
+.repositories {
+  color: red;
+}
+
+.section {
+  width: 20px;
+  height: 20px;
+  background-color: grey;
+}
