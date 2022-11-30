@@ -1,12 +1,16 @@
+import { useEffect, useState } from 'react';
+import { Route, matchPath, Routes, useLocation } from 'react-router-dom';
 import '../styles/App.scss';
 import adalabLogo from '../images/adalab-logo.png';
-import { useEffect, useState } from 'react';
 import callToApi from '../services/api';
 import ls from '../services/localStorage';
-import MainHeader from './MainHeader';
+import Profile from './Profile';
 import Header from './Header';
-import Tweet from './Tweet';
 import ComposeModal from './ComposeModal';
+import Tweets from './Tweets';
+import Home from './Home';
+import Search from './Search';
+import TweetDetail from './TweetDetail';
 
 function App() {
   //States
@@ -14,6 +18,7 @@ function App() {
   //Es una práctica muy habitual llamar al ls y que cuando esté vacío me devuelva un valor por defecto
   const [composeText, setComposeText] = useState(ls.get('composeText', ''));
   const [tweets, setTweets] = useState([]);
+  const { pathname } = useLocation();
 
   //Effects
   //Aqui mando llamar a todos los datos de la api al arrancar la página
@@ -62,12 +67,6 @@ function App() {
 
   //Render Helpers
 
-  const renderTweets = () => {
-    return tweets.map((tweet) => {
-      return <Tweet key={tweet.id} tweet={tweet} />;
-    });
-  };
-
   // const renderTweets2 = () => {
   //   return tweets.map(tweet => {
   //     return (
@@ -100,13 +99,33 @@ function App() {
     }
   };
 
+  const getTweet = () => {
+    const RouteTweetData = matchPath('/tweet/:tweetId', pathname);
+    if (RouteTweetData) {
+      const tweetId =
+        RouteTweetData !== null ? RouteTweetData.params.tweetId : '';
+      const routeTweet = tweets.find((eachTweet) => eachTweet.id === tweetId);
+      return routeTweet || {}; //Ponemos esto para que no nos de katakroker cuando nos devuelva routeTweet un undefined que rompa la funcion
+    }
+  };
+  //Esto no funciona??
+
   return (
     <div className='App'>
       <div className='page'>
         <Header handleClick={handleToggleCompose} />
         <main className='main'>
-          <MainHeader />
-          <ul>{renderTweets()}</ul>
+          {/* Poniendo el exact evitamos que al pasar por el home deje el home y busque el resto de rutas. ¿Por que deja el home? Porque al ver que la ruta empieza por "/" ya no sigue buscando y se queda en esa y ya está*/}
+          <Routes>
+            <Route path='/' exact element={<Home />}></Route>
+            <Route path='/search' element={<Search />}></Route>
+            <Route path='/profile' element={<Profile />}></Route>
+            <Route
+              path='/tweet/:tweetId'
+              element={<TweetDetail getTweet={getTweet()} tweets={tweets} />}
+            ></Route>
+          </Routes>
+          <Tweets tweets={tweets} />
           {renderComposeModal()}
         </main>
       </div>
