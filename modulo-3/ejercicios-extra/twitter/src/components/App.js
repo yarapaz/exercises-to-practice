@@ -11,6 +11,9 @@ import Tweets from './Tweets';
 import Home from './Home';
 import Search from './Search';
 import TweetDetail from './TweetDetail';
+import Loader from './Loader';
+import { v4 as uuidv4 } from 'uuid';
+import date from '../services/date';
 
 function App() {
   //States
@@ -18,6 +21,9 @@ function App() {
   //Es una práctica muy habitual llamar al ls y que cuando esté vacío me devuelva un valor por defecto
   const [composeText, setComposeText] = useState(ls.get('composeText', ''));
   const [tweets, setTweets] = useState([]);
+  const [showLoading, setShowLoading] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const [profile, setProfile] = useState({});
   const { pathname } = useLocation();
 
   //Effects
@@ -26,8 +32,16 @@ function App() {
   //2. No poner nada hará que se lance en loop eterno
   //3. Poner un estado o algo indica que solo se lanzará cuando los datos de ese estado cambien
   useEffect(() => {
-    callToApi().then((data) => {
+    setShowLoading(true);
+    callToApi.getTweets().then((data) => {
+      setShowLoading(false);
       setTweets(data);
+    });
+  }, []);
+
+  useEffect(() => {
+    callToApi.getProfile().then((data) => {
+      setProfile(data);
     });
   }, []);
 
@@ -50,19 +64,31 @@ function App() {
 
   const handleComposeSubmit = () => {
     tweets.unshift({
-      id: '0as8fdsdf',
-      avatar: 'http://localhost:3000/assets/avatars/user-4.jpg',
-      user: 'Concha Asensio',
-      username: 'conchaasensio',
-      date: '3 sep. 2021',
+      id: uuidv4(),
+      avatar: profile.avatar,
+      user: profile.user,
+      username: profile.username,
+      date: date.getCurrentDate(),
       text: composeText, //porque el texto quiero que sea el que escriba yo en el tweet
-      comments: 1,
-      retweets: 3,
-      likes: 13,
+      comments: 0,
+      retweets: 0,
+      likes: 0,
     });
     setTweets([...tweets]); //si no hacemos el spread nos pintará la pagina de nuevo con los mismos datos
     setComposeIsOpen(false); //cierra la seccion una vez hacemos click en el boton
     setComposeText(''); //vacia el textarea una vez cerramos el tweet para que no se quede ahi por siempre
+  };
+
+  const handleSearchText = (searchtext) => {
+    setSearchText(searchtext);
+  };
+
+  const getFilteredTweets = () => {
+    return tweets.filter(
+      (eachTweet) =>
+        eachTweet.text.toLowerCase().includes(searchText.toLowerCase()) ||
+        eachTweet.user.toLowerCase().includes(searchText.toLowerCase())
+    );
   };
 
   //Render Helpers
@@ -111,24 +137,31 @@ function App() {
   //Esto no funciona??
 
   return (
-    <div className='App'>
-      <div className='page'>
-        <Header handleClick={handleToggleCompose} />
-        <main className='main'>
-          {/* Poniendo el exact evitamos que al pasar por el home deje el home y busque el resto de rutas. ¿Por que deja el home? Porque al ver que la ruta empieza por "/" ya no sigue buscando y se queda en esa y ya está*/}
-          <Routes>
-            <Route path='/' exact element={<Home />}></Route>
-            <Route path='/search' element={<Search />}></Route>
-            <Route path='/profile' element={<Profile />}></Route>
-            <Route
-              path='/tweet/:tweetId'
-              element={<TweetDetail getTweet={getTweet()} tweets={tweets} />}
-            ></Route>
-          </Routes>
-          <Tweets tweets={tweets} />
-          {renderComposeModal()}
-        </main>
-      </div>
+    <div className='page'>
+      <Header handleClick={handleToggleCompose} />
+      <main className='main'>
+        {/* Poniendo el exact evitamos que al pasar por el home deje el home y busque el resto de rutas. ¿Por que deja el home? Porque al ver que la ruta empieza por "/" ya no sigue buscando y se queda en esa y ya está*/}
+        <Routes>
+          <Route path='/' exact element={<Home />}></Route>
+          <Route
+            path='/search'
+            element={
+              <Search
+                searchText={searchText}
+                setsearchText={handleSearchText}
+              />
+            }
+          ></Route>
+          <Route path='/profile' element={<Profile />}></Route>
+          <Route
+            path='/tweet/:tweetId'
+            element={<TweetDetail getTweet={getTweet()} tweets={tweets} />}
+          ></Route>
+        </Routes>
+        <Tweets tweets={getFilteredTweets} />
+        {renderComposeModal()}
+      </main>
+      <Loader showLoading={showLoading} />
     </div>
   );
 }

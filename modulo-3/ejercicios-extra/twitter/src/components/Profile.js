@@ -2,7 +2,16 @@ import adalabBanner from '../images/adalab-banner.jpg';
 import adalabLogo from '../images/adalab-logo.png';
 import '../styles/components/Profile.scss';
 
-const Profile = () => {
+const Profile = (props) => {
+  const parseDescription = () => {
+    if (props.profile.description) {
+      const descriptionWithBreakLines = props.profile.description.replace(
+        /\n/g,
+        '<br />'
+      );
+      return { __html: descriptionWithBreakLines };
+    }
+  };
   return (
     <section className='profile'>
       <header>
@@ -28,7 +37,10 @@ const Profile = () => {
             <span className='header__acount-follow'>Te sigue</span>
           </div>
 
-          <h2 className='header__account-description'>
+          <h2
+            className='header__account-description'
+            dangerouslySetInnerHTML={parseDescription()}
+          >
             👩‍💻 Tecnóloga mujer Escuela de programación web para mujeres. <br />
             📅 Calendario espiralado Próximo curso: noviembre 2021. <br />
             📌 Clases online en directo.
