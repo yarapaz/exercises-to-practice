@@ -40,13 +40,7 @@ const Profile = (props) => {
           <h2
             className='header__account-description'
             dangerouslySetInnerHTML={parseDescription()}
-          >
-            👩‍💻 Tecnóloga mujer Escuela de programación web para mujeres. <br />
-            📅 Calendario espiralado Próximo curso: noviembre 2021. <br />
-            📌 Clases online en directo.
-            <br />
-            🚀 Aprende a programar en solo 12 semanas.
-          </h2>
+          ></h2>
 
           <div className='header__account-data'>
             <span className='header__account-region'>
