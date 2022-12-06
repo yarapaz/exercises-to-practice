@@ -1,16 +1,21 @@
 const callToApi = () => {
-  return fetch('https://swapi.dev/api/people/5')
+  return fetch('https://randomuser.me/api/?results=50')
     .then((response) => response.json())
-    .then((response) => {
-      const result = {
-        name: response.name,
-        birthYear: response.birth_year,
-        height: response.height,
-        mass: response.mass,
-        eyeColor: response.eye_color,
-      };
-      return result;
-    });
+    .then((data) => {
+      const users = data.results.map((eachData) => {
+        const user = {
+          id: eachData.id.name + eachData.id.value,
+          name: eachData.name.first + ' ' + eachData.name.last,
+          image: eachData.picture.large,
+          city: eachData.location.city,
+          age: eachData.registered.age,
+          gender: eachData.gender,
+        };
+        return user;
+      });
+      return users;
+    })
+    .catch((error) => console.log(`An error ${error} has been found`));
 };
 
 export default callToApi;

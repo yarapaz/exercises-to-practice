@@ -1,0 +1,17 @@
+.image {
+  width: 200px;
+  height: 200px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.list__item {
+  width: 600px;
+  border: 2px solid blue;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+}
