@@ -4,6 +4,7 @@ function CityFilter(props) {
   const handleCity = (ev) => {
     props.handleCityFilter(ev.target.value);
   };
+
   //OPTION 1: sin order alfabetico ni eliminacion de repetidos
   //   const renderCityOptions = () => {
   //     return props.usersData.map((eachUser) => {
@@ -33,7 +34,7 @@ function CityFilter(props) {
     <fieldset>
       <legend>Search by city</legend>
       <select name='' id='' onChange={handleCity}>
-        <option value='none'>Select a country</option>
+        <option value='all'>Select a country</option>
         {renderCityOptions()}
       </select>
     </fieldset>

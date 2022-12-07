@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 function UserDetail(props) {
   const params = useParams();
   const foundUser = props.findUser(params.user);
-  console.log(foundUser);
   return (
     <main>
       <section>

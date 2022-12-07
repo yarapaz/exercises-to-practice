@@ -22,13 +22,13 @@ function GenderFilter(props) {
         onChange={handleGender}
         checked={props.userGenderFilter === 'female'}
       />
-      <label htmlFor='none'>None</label>
+      <label htmlFor='none'>All</label>
       <input
         type='radio'
-        name='none'
-        id='none'
+        name='all'
+        id='all'
         onChange={handleGender}
-        checked={props.userGenderFilter === 'none'}
+        checked={props.userGenderFilter === 'all'}
       />
     </fieldset>
   );

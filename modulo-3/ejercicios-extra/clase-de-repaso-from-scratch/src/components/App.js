@@ -23,7 +23,6 @@ function App() {
     gender: lsInfo.gender,
     city: lsInfo.city,
   });
-  console.log(usersData);
 
   //Effects
   useEffect(() => {
@@ -50,7 +49,7 @@ function App() {
     ls.clear();
     setUserNameFilter('');
     setUserGenderFilter('');
-    setUserCityFilter('');
+    setUserCityFilter('all');
   };
 
   const findUser = (name) => {

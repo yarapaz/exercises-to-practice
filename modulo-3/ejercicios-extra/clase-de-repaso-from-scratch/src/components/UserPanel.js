@@ -19,18 +19,14 @@ function UserPanel({
       .filter((eachUser) => {
         if (eachUser.gender === userGenderFilter) {
           return eachUser;
-        } else if (userGenderFilter === '') {
-          return true;
-        } else if (userGenderFilter === 'none') {
+        } else if (userGenderFilter === '' || userGenderFilter === 'all') {
           return true;
         }
       })
       .filter((eachUser) => {
         if (eachUser.city === userCityFilter) {
           return eachUser;
-        } else if (userCityFilter === '') {
-          return true;
-        } else if (userCityFilter === 'none') {
+        } else if (userCityFilter === '' || userCityFilter === 'all') {
           return true;
         }
       })
