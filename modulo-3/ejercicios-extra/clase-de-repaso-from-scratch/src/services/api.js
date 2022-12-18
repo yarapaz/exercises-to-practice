@@ -4,7 +4,7 @@ const callToApi = () => {
     .then((data) => {
       const users = data.results.map((eachData) => {
         const user = {
-          id: eachData.id.name + eachData.id.value,
+          id: crypto.randomUUID(),
           name: eachData.name.first + ' ' + eachData.name.last,
           image: eachData.picture.large,
           city: eachData.location.city,

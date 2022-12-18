@@ -30,8 +30,8 @@ function UserPanel({
           return true;
         }
       })
-      .map((eachUser, index) => {
-        return <UserCard eachUser={eachUser} key={index} />;
+      .map((eachUser) => {
+        return <UserCard eachUser={eachUser} key={eachUser.id} />;
       });
   };
 
