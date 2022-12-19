@@ -15,7 +15,7 @@ const writeFile = (fileName, fileContent, callback) => {
     if (err) {
       console.log('Error:', err);
     } else {
-      callback();
+      callback(); //Si aqui la funcion callback necesita parametros se los daré arriba, sino no le daré nada
     }
   });
 };
