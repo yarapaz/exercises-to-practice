@@ -10,7 +10,7 @@ app.listen(serverPort, () => {
 
 // config express static serve
 
-const staticServerPath = './public'; // relative to the root of the project
+const staticServerPath = './public'; // relative to the root of the project ALWAYS
 app.use(express.static(staticServerPath));
 
 const staticServerPathAdmin = './admin';
