@@ -23,6 +23,26 @@ const db = new Database('./src/database2.db', {
 
 //api endpoints
 
+app.get('/books/:bookId/categories', (req, res) => {
+  const bookId = req.params.bookId;
+  const query = db.prepare(
+    'SELECT * FROM books, MainCategories, SecondaryCategories, books_secondaryCategories WHERE books.fkMainCategory = MainCategories.id AND books.id = books_secondaryCategories.fkBooks AND SecondaryCategories.id = books_secondaryCategories.fkSecondaryCategories AND books.id = ?'
+  );
+  const book = query.get(bookId);
+  res.json(book);
+});
+
+//Tested
+app.get('/books/:bookId/categories', (req, res) => {
+  const bookId = req.params.bookId;
+  console.log(bookId);
+  const query = db.prepare(
+    'SELECT * FROM books, categories WHERE books.fkCategories = categories.id AND books.id = ?'
+  );
+  const book = query.get(bookId);
+  res.json(book);
+});
+
 app.patch('/books', (req, res) => {
   const newStock = req.body.newStock;
   console.log(newStock);
