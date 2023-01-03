@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 // init express aplication
-const serverPort = 4000;
+const serverPort = 3000;
 app.listen(serverPort, () => {
   console.log(`Server listening at http://localhost:${serverPort}`);
 });
@@ -21,77 +21,23 @@ const db = new Database('./src/database2.db', {
   verbose: console.log,
 });
 
-// api endpoints
+//api endpoints
 
-app.get('/books', (req, res) => {
-  const query = db.prepare(`SELECT * FROM books`);
-  const books = query.all();
-  res.json(books);
+app.patch('/books', (req, res) => {
+  const newStock = req.body.newStock;
+  console.log(newStock);
+
+  const query = db.prepare('UPDATE books SET stock = ? WHERE ebook = false');
+  const result = query.run(newStock);
+  res.json(result);
 });
 
+//tested
 app.get('/books', (req, res) => {
-  const priceOrder = req.query.priceOrder;
-  console.log(priceOrder);
-  if (priceOrder === 'asc') {
-    const query = db.prepare(`SELECT * FROM books ORDER BY price ASC`);
-    const books = query.all();
-    res.json(books);
-  } else {
-    const query = db.prepare(`SELECT * FROM books ORDER BY price DESC`);
-    const books = query.all();
-    res.json(books);
-  }
-});
-
-app.get('/books', (req, res) => {
-  const price = parseInt(req.query.price);
-  if (price > 5) {
-    const query = db.prepare(`SELECT * FROM books WHERE price > 5`);
-    const books = query.all(price);
-    res.json(books);
-  } else {
-    res.json({ success: false, message: 'No hay libros por debajo de 5€' });
-  }
-});
-
-app.get('/books', (req, res) => {
-  const stock = parseInt(req.query.stock);
-  if (stock > 0) {
-    const query = db.prepare(`SELECT * FROM books WHERE stock > 0`);
-    const books = query.all();
-    res.json(books);
-  } else {
-    res.json({ success: false, message: 'No hay libros en stock' });
-  }
-});
-
-app.get('/books', (req, res) => {
-  const stock = parseInt(req.query.stock);
-  const ebook = req.query.ebook;
-
-  if (stock > 0 && ebook) {
-    const query = db.prepare(
-      `SELECT * FROM books WHERE stock > 0 AND e-book = true`
-    );
-    const books = query.all();
-    res.json(books);
-  } else {
-    res.json({ success: false, message: 'No hay libros en stock' });
-  }
-});
-
-app.get('/books', (req, res) => {
-  const bookId = req.query.id;
-  const query = db.prepare(`SELECT * FROM books WHERE id = ?`);
-  const book = query.get(bookId);
-  res.json(book);
-});
-
-app.get('/books', (req, res) => {
-  const page = parseInt(req.query.limit);
+  const page = parseInt(req.query.page);
 
   if (page === 1) {
-    const query = db.prepare(`SELECT * FROM books LIMIT 3 ORDER BY name ASC`);
+    const query = db.prepare(`SELECT * FROM books ORDER BY name ASC LIMIT 3 `);
     const books = query.all();
     res.json(books);
   } else if (page === 2) {
@@ -103,12 +49,76 @@ app.get('/books', (req, res) => {
   }
 });
 
-app.patch('/books', (req, res) => {
-  const newStock = req.body.newStock;
+//tested
+app.get('/books', (req, res) => {
+  const bookId = req.query.id;
+  const query = db.prepare(`SELECT * FROM books WHERE id = ?`);
+  const book = query.get(bookId);
+  res.json(book);
+});
 
-  const query = db.prepare('UPDATE books SET stock = ? WHERE e-book = false');
-  const result = query.run(newStock);
-  res.json(result);
+//tested
+app.get('/books', (req, res) => {
+  const stock = parseInt(req.query.stock);
+  const ebook = req.query.ebook;
+  console.log(stock);
+  console.log(ebook);
+
+  if (stock > 0 && ebook === 'true') {
+    const query = db.prepare(
+      `SELECT * FROM books WHERE stock > 0 AND ebook = true`
+    );
+    const books = query.all();
+    res.json(books);
+  } else {
+    res.json({ success: false, message: 'No hay libros en stock' });
+  }
+});
+
+//tested
+app.get('/books', (req, res) => {
+  const stock = parseInt(req.query.stock);
+  if (stock > 0) {
+    const query = db.prepare(`SELECT * FROM books WHERE stock > 0`);
+    const books = query.all();
+    res.json(books);
+  } else {
+    res.json({ success: false, message: 'No hay libros en stock' });
+  }
+});
+
+//tested
+app.get('/books', (req, res) => {
+  const price = parseInt(req.query.price);
+  console.log(price);
+  if (price > 5) {
+    const query = db.prepare(`SELECT * FROM books WHERE price > 5`);
+    const books = query.all();
+    res.json(books);
+  } else {
+    res.json({ success: false, message: 'No hay libros por debajo de 5€' });
+  }
+});
+
+//tested
+app.get('/books', (req, res) => {
+  const priceOrder = req.query.priceOrder;
+  if (priceOrder === 'asc') {
+    const query = db.prepare(`SELECT * FROM books ORDER BY price ASC`);
+    const books = query.all();
+    res.json(books);
+  } else {
+    const query = db.prepare(`SELECT * FROM books ORDER BY price DESC`);
+    const books = query.all();
+    res.json(books);
+  }
+});
+
+//tested
+app.get('/books', (req, res) => {
+  const query = db.prepare(`SELECT * FROM books`);
+  const books = query.all();
+  res.json(books);
 });
 
 app.post('/books', (req, res) => {
@@ -116,7 +126,7 @@ app.post('/books', (req, res) => {
 
   if (req.body.name && req.body.author) {
     const query = db.prepare(
-      'INSERT INTO books (name, author, summary, price, stock, e-book) VALUES (?, ?, ?,?,?,?)'
+      'INSERT INTO books (name, author, summary, price, stock, ebook) VALUES (?, ?, ?,?,?,?)'
     );
     const result = query.run(
       newBook.name,
@@ -136,7 +146,7 @@ app.post('/books', (req, res) => {
 
 app.delete('/books/deleteAll', (req, res) => {
   const query = db.prepare(
-    'UPDATE books SET name = ? WHERE e-book = false AND stock = 0'
+    'UPDATE books SET name = ? WHERE ebook = false AND stock = 0'
   );
   const result = query.run(newTitle, bookId);
   res.json(result);
@@ -164,7 +174,7 @@ app.put('/books/:bookId', (req, res) => {
   const newBookInfo = req.body;
 
   const query = db.prepare(
-    'UPDATE books SET name = ?, author = ?, summary = ?, price = ?, stock = ?, e-book = ? WHERE id = ?'
+    'UPDATE books SET name = ?, author = ?, summary = ?, price = ?, stock = ?, ebook = ? WHERE id = ?'
   );
   const result = query.run(
     newBookInfo.name,
