@@ -1,0 +1,23 @@
+* Generar estructura básica de React
+* SRC
+1. Componentes
+- App.js
+* Estados
+* Llamadas a la API
+* Funciones principales
+* Html principal: Routes (landing / club)
+
+- Footer
+- Header
+- Landing: form / panel de resultados
+- Club1: footer / header / pista base / horario base (mes 30, mes 31, febrero 28 días)
+- Ventana modal de reserva
+- Ventana de pagos
+
+PAGES: header, landing (main), footer
+LANDING: search form, panel de resultados
+DETAIL: club generator, pista generator, schedule generator
+FUNCTIONS: error, page not found, reserva, pagos
+2. Images
+3. Scss
+4. Index.js
